@@ -2,8 +2,8 @@ import { SetStateAction } from "react"
 
 interface cartItem {
     readonly item : JSX.Element,
-    itemAmount : Number
-    readonly itemPrice : Number
+    itemAmount : number
+    readonly itemPrice : number
 }
 
 interface cartProps {
@@ -13,21 +13,48 @@ interface cartProps {
 
 }
 
-
-
 const Cart = function(props:cartProps):JSX.Element{
 
+    const getAmount = function(obj:cartItem){
+        return obj.itemAmount
+    }
 
     const incrementItem = function(key:string){
+        props.itemsSetter(itemsMap => {
+            if(itemsMap){
+                let target = itemsMap.get(key)
+                let amount  = target ? getAmount(target) + 1 : false
+                if(amount){
+                    let updatedObj = Object.assign({},target,{itemAmount:amount})
+                    itemsMap.set(key,updatedObj)
+                }
+            }
+            return itemsMap
+        })
 
     }
     
     const decrementItem = function(key:string){
+        props.itemsSetter(itemsMap => {
+            if(itemsMap){
+                let target = itemsMap.get(key)
+                let amount  = target ? getAmount(target) - 1 : -1
+                if(amount >= 0){
+                    let updatedObj = Object.assign({},target,{itemAmount:amount})
+                    itemsMap.set(key,updatedObj)
+                }
+            }
+            return itemsMap
+        })
+        
     
     }
     
     const removeItem = function(key:string){
-        
+        props.itemsSetter(item => {
+            item?.delete(key)
+            return item
+        })
     }
 
     const renderItem = function(key:string,itemObject:cartItem ){
@@ -65,9 +92,6 @@ const Cart = function(props:cartProps):JSX.Element{
             </div>
         )
     }
-    
-
-
     
 
 }
