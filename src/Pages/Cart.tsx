@@ -14,16 +14,6 @@ interface cartProps {
 
 }
 
-const getAmount = function(obj:cartItem){
-    return obj.itemAmount
-}
-
-const removeItem = function(key:string,setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>){
-    setter(item => {
-        item?.delete(key)
-        return item
-    })
-}
 
 const Cart = function(props:cartProps):JSX.Element{
 
@@ -35,6 +25,17 @@ const Cart = function(props:cartProps):JSX.Element{
 
 
     useEffect(() => {
+
+        const getAmount = function(obj:cartItem){
+            return obj.itemAmount
+        }
+        
+        const removeItem = function(key:string){
+            props.itemsSetter(item => {
+                item?.delete(key)
+                return item
+            })
+        }
     
         const incrementItem = function(key:string){
             props.itemsSetter(itemsMap => {
@@ -66,6 +67,20 @@ const Cart = function(props:cartProps):JSX.Element{
             
         
         }
+
+        const removeEmptyOrders = function(){
+            if(props.itemsMap){
+                const items = Array.from(props.itemsMap.entries())
+                for(let item of items){
+                    let [key, obj] = item
+                    if(getAmount(obj) === 0 ){
+                        removeItem(key)
+                    }
+    
+                }
+            }
+    
+        }
         
 
         const renderItem = function(key:string,itemObject:cartItem ){
@@ -79,7 +94,7 @@ const Cart = function(props:cartProps):JSX.Element{
                         <span>{amount}</span>
                         <button onClick={() => {incrementItem(key)}}>Increment</button>
                     </div>
-                    <button onClick={() => {removeItem(key,props.itemsSetter)}}>Remove</button>
+                    <button onClick={() => {removeItem(key)}}>Remove</button>
     
                 </div>
                 
@@ -94,6 +109,9 @@ const Cart = function(props:cartProps):JSX.Element{
                     {renderedItems}
                 </div>
             )
+            return () => {
+                removeEmptyOrders()
+            }
             
         }
     
