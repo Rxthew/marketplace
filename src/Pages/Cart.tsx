@@ -1,7 +1,7 @@
 import { SetStateAction, useState, useEffect } from "react"
 
 
-interface cartItem {
+export interface cartItem {
     readonly item : JSX.Element,
     itemAmount : number
     readonly itemPrice : number
@@ -15,7 +15,7 @@ interface cartProps {
 }
 
 
-const Cart = function(props:cartProps):JSX.Element{
+export const Cart = function(props:cartProps):JSX.Element{
 
     let [cartContent,setCartContent] = useState<JSX.Element>(
     <div>
@@ -123,5 +123,3 @@ const Cart = function(props:cartProps):JSX.Element{
     )  
     
 }
-
-export default Cart
