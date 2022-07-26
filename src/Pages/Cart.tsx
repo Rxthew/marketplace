@@ -33,6 +33,7 @@ export const Cart = function(props:cartProps):JSX.Element{
         const removeItem = function(key:string){
             props.itemsSetter(item => {
                 item?.delete(key)
+                item = new Map(item)
                 return item
             })
         }
@@ -45,6 +46,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                     if(amount){
                         let updatedObj = Object.assign({},target,{itemAmount:amount})
                         itemsMap.set(key,updatedObj)
+                        itemsMap = new Map(itemsMap)
                     }
                 }
                 return itemsMap
@@ -60,6 +62,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                     if(amount >= 0){
                         let updatedObj = Object.assign({},target,{itemAmount:amount})
                         itemsMap.set(key,updatedObj)
+                        itemsMap = new Map(itemsMap)
                     }
                 }
                 return itemsMap
@@ -91,7 +94,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                     {itemObject.item}
                     <div>
                         <button onClick = {() => {decrementItem(key)}}>Decrement</button>
-                        <span>{amount}</span>
+                        <span data-testid='amount'>{amount}</span>
                         <button onClick={() => {incrementItem(key)}}>Increment</button>
                     </div>
                     <button onClick={() => {removeItem(key)}}>Remove</button>
