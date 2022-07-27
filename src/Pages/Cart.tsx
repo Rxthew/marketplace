@@ -1,4 +1,5 @@
 import { SetStateAction, useState, useEffect } from "react"
+import {v4 as genKey} from 'uuid'
 
 
 export interface cartItem {
@@ -90,7 +91,7 @@ export const Cart = function(props:cartProps):JSX.Element{
             let amount = itemObject.itemAmount.toString()
     
             return (
-                <div>
+                <div key={genKey()}>
                     {itemObject.item}
                     <div>
                         <button onClick = {() => {decrementItem(key)}}>Decrement</button>
