@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {Cart, cartItem} from '../Cart'
 
 
+
 let preRerenderSetter: jest.Mock
 
 const SetNewMap = function(props:{someMap : Map<string,cartItem> | null}){
@@ -118,7 +119,7 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
         render(<SetNewMap someMap={decrementedMap}/>)
         expect(screen.getByTestId('amount').textContent).toBe('1')
         
-        let target = screen.getByText('Decrement')
+        let target = screen.getByRole('button',{name: /decrement/i})
         userEvent.click(target)
         
         expect(decrementedMap.get('default').itemAmount).toBe(0)
@@ -136,7 +137,7 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
         let incrementedMap2 = new Map()
         incrementedMap2.set('default',someItem('more incremented text'))
         render(<SetNewMap someMap={incrementedMap2}/>)
-        let target = screen.getByText('Increment')
+        let target =screen.getByRole('button',{name: /increment/i})
         userEvent.click(target)
         expect(preRerenderSetter).toHaveBeenCalled()
         cleanup()
@@ -144,7 +145,7 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
         let decrementedMap2 = new Map()
         decrementedMap2.set('default',someItem('more decremented text'))
         render(<SetNewMap someMap={decrementedMap2}/>)
-        let secondtarget = screen.getByText('Decrement')
+        let secondtarget = screen.getByRole('button',{name: /decrement/i})
         userEvent.click(secondtarget)
         expect(preRerenderSetter).toHaveBeenCalled()
         cleanup()
@@ -160,7 +161,7 @@ describe('Cart removes item from itemsMap if user clicks corresponding button',(
         toBeRemoved.set('default', someItem('not in view'))
         render(<SetNewMap someMap={toBeRemoved}/>)
         expect(screen.getByText('not in view')).toBeInTheDocument()
-        const target = screen.getByText('Remove')
+        const target = screen.getByRole('button',{name: /remove/i})
         userEvent.click(target)
         expect(screen.queryByText('not in view')).not.toBeInTheDocument()
         expect(preRerenderSetter).toHaveBeenCalled()

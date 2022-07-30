@@ -46,11 +46,11 @@ const SingleItem =  function(props:singleItemProps){
         <div key={genKey()}>
             {itemObject.item}
             <div>
-                <button onClick = {() => {decrement(key)}}>Decrement</button>
+                <button type='button' aria-label={'decrement'} onClick = {() => {decrement(key)}}>Decrement</button>
                 <span data-testid='amount'>{amount}</span>
-                <button onClick={() => {increment(key)}}>Increment</button>
+                <button type='button' aria-label={'increment'} onClick={() => {increment(key)}}>Increment</button>
             </div>
-            <button onClick={() => {removeItem(key,itemsSetter)}}>Remove</button>
+            <button type='button' aria-label={'remove'} onClick={() => {removeItem(key,itemsSetter)}}>Remove</button>
 
         </div>
         
