@@ -15,6 +15,15 @@ interface cartProps {
 
 }
 
+interface singleItemProps {
+    mapKey: string,
+    itemObject : cartItem
+    setter : React.Dispatch<SetStateAction<Map<string,cartItem> | null>>
+    decrement(key:string) : void
+    increment(key:string) : void
+    
+}
+
 const getAmount = function(obj:cartItem){
     return obj.itemAmount
 }
@@ -27,7 +36,30 @@ const removeItem = function(key:string, setter:React.Dispatch<SetStateAction<Map
     })
 }
 
+const SingleItem =  function(props:singleItemProps){
+
+    const [key,itemsSetter,decrement,increment] = [props.mapKey, props.setter,props.decrement,props.increment]
+    let itemObject = props.itemObject
+    let amount = itemObject.itemAmount.toString()
+
+    return (
+        <div key={genKey()}>
+            {itemObject.item}
+            <div>
+                <button onClick = {() => {decrement(key)}}>Decrement</button>
+                <span data-testid='amount'>{amount}</span>
+                <button onClick={() => {increment(key)}}>Increment</button>
+            </div>
+            <button onClick={() => {removeItem(key,itemsSetter)}}>Remove</button>
+
+        </div>
+        
+    )
+}
+
 let lastMount = false;
+
+
 export const Cart = function(props:cartProps):JSX.Element{
 
     let [cartContent,setCartContent] = useState<JSX.Element>(
@@ -77,6 +109,7 @@ export const Cart = function(props:cartProps):JSX.Element{
       }  
     },[itemsSetter])
 
+
     useEffect(() => {
         
     
@@ -113,27 +146,11 @@ export const Cart = function(props:cartProps):JSX.Element{
         
         }
 
-        const renderItem = function(key:string,itemObject:cartItem ){
-            let amount = itemObject.itemAmount.toString()
-    
-            return (
-                <div key={genKey()}>
-                    {itemObject.item}
-                    <div>
-                        <button onClick = {() => {decrementItem(key)}}>Decrement</button>
-                        <span data-testid='amount'>{amount}</span>
-                        <button onClick={() => {incrementItem(key)}}>Increment</button>
-                    </div>
-                    <button onClick={() => {removeItem(key,itemsSetter)}}>Remove</button>
-    
-                </div>
-                
-            )
-        }
-
         if(itemsMap){
             const itemsArray =  Array.from(itemsMap.entries())
-            const renderedItems = itemsArray.map(elem => renderItem(elem[0],elem[1]))
+            const renderedItems = itemsArray.map(elem => 
+                <SingleItem key={genKey()} mapKey={elem[0]} itemObject={elem[1]} setter={itemsSetter} increment={incrementItem} decrement={decrementItem} />
+            )
             setCartContent(
                 <div>
                     {renderedItems}
@@ -145,6 +162,7 @@ export const Cart = function(props:cartProps):JSX.Element{
 
     },[itemsMap, itemsSetter])
 
+    
 
     return (
         cartContent
