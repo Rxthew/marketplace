@@ -1,4 +1,4 @@
-import { SetStateAction, useState, useEffect } from "react"
+import React, { SetStateAction, useState, useEffect } from "react"
 import {v4 as genKey} from 'uuid'
 
 
@@ -15,7 +15,19 @@ interface cartProps {
 
 }
 
+const getAmount = function(obj:cartItem){
+    return obj.itemAmount
+}
 
+const removeItem = function(key:string, setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>){
+    setter(item => {
+        item?.delete(key)
+        item = new Map(item)
+        return item
+    })
+}
+
+let lastMount = false;
 export const Cart = function(props:cartProps):JSX.Element{
 
     let [cartContent,setCartContent] = useState<JSX.Element>(
@@ -24,23 +36,52 @@ export const Cart = function(props:cartProps):JSX.Element{
     </div>
     )
 
+    let itemsSetter = props.itemsSetter
+    let itemsMap = props.itemsMap
+
+    useEffect(()=> {
+        return () => {
+            lastMount = true
+        }
+
+    },[])
+
+    useEffect(()=> {
+
+        const removeEmptyOrders = function(){
+            itemsSetter(itemsMap => {
+                if(itemsMap){
+                    const items = Array.from(itemsMap.entries())
+                    for(let item of items){
+                        let [key, obj] = item
+                        if(getAmount(obj) === 0 ){
+                            removeItem(key,itemsSetter)
+                        }
+        
+                    }
+                    
+                }
+                return itemsMap
+                
+            })
+        }  
+
+      return () => {
+
+        if(lastMount){
+
+            lastMount = false;
+            removeEmptyOrders();
+            
+        }
+      }  
+    },[itemsSetter])
 
     useEffect(() => {
-
-        const getAmount = function(obj:cartItem){
-            return obj.itemAmount
-        }
         
-        const removeItem = function(key:string){
-            props.itemsSetter(item => {
-                item?.delete(key)
-                item = new Map(item)
-                return item
-            })
-        }
     
         const incrementItem = function(key:string){
-            props.itemsSetter(itemsMap => {
+            itemsSetter(itemsMap => {
                 if(itemsMap){
                     let target = itemsMap.get(key)
                     let amount  = target ? getAmount(target) + 1 : false
@@ -56,7 +97,7 @@ export const Cart = function(props:cartProps):JSX.Element{
         }
         
         const decrementItem = function(key:string){
-            props.itemsSetter(itemsMap => {
+            itemsSetter(itemsMap => {
                 if(itemsMap){
                     let target = itemsMap.get(key)
                     let amount  = target ? getAmount(target) - 1 : -1
@@ -72,21 +113,6 @@ export const Cart = function(props:cartProps):JSX.Element{
         
         }
 
-        const removeEmptyOrders = function(){
-            if(props.itemsMap){
-                const items = Array.from(props.itemsMap.entries())
-                for(let item of items){
-                    let [key, obj] = item
-                    if(getAmount(obj) === 0 ){
-                        removeItem(key)
-                    }
-    
-                }
-            }
-    
-        }
-        
-
         const renderItem = function(key:string,itemObject:cartItem ){
             let amount = itemObject.itemAmount.toString()
     
@@ -98,29 +124,27 @@ export const Cart = function(props:cartProps):JSX.Element{
                         <span data-testid='amount'>{amount}</span>
                         <button onClick={() => {incrementItem(key)}}>Increment</button>
                     </div>
-                    <button onClick={() => {removeItem(key)}}>Remove</button>
+                    <button onClick={() => {removeItem(key,itemsSetter)}}>Remove</button>
     
                 </div>
                 
             )
         }
 
-        if(props.itemsMap){
-            const itemsArray =  Array.from(props.itemsMap.entries())
+        if(itemsMap){
+            const itemsArray =  Array.from(itemsMap.entries())
             const renderedItems = itemsArray.map(elem => renderItem(elem[0],elem[1]))
             setCartContent(
                 <div>
                     {renderedItems}
                 </div>
             )
-            return () => {
-                removeEmptyOrders()
-            }
             
         }
     
 
-    },[props])
+    },[itemsMap, itemsSetter])
+
 
     return (
         cartContent
