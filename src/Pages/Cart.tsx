@@ -12,7 +12,6 @@ interface cartProps {
     itemsMap: Map<string,cartItem> | null
     readonly itemsSetter: React.Dispatch<SetStateAction<Map<string,cartItem> | null>>
     
-
 }
 
 interface singleItemProps {
