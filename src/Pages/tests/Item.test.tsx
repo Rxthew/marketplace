@@ -2,14 +2,21 @@ import userEvent from '@testing-library/user-event'
 import {cleanup, render, screen} from '@testing-library/react'
 import {useState, useEffect} from 'react'
 import {Item} from '../Item'
+import { cartItem } from '../Cart'
+
+type setMapType = Map<string,{name: string, description:string} | cartItem> | null
 
 let preRerenderSetter: jest.Mock
-const SetNewItemMap = function(props:{someMap : Map<string,{name: string, description:string}> | null,mapKey:string}){
-    let [propMap, setPropMap] = useState<Map<string,{name: string, description:string}>| null>(props.someMap)
+let finalMapState: setMapType
+const SetNewItemMap = function(props:{someMap : setMapType ,mapKey:string}){
+
+    let [propMap, setPropMap] = useState<setMapType>(props.someMap)
     let testSetter:jest.Mock = jest.fn(setPropMap)
-    let mapKey = props.mapKey
-    let name = propMap?.get(mapKey)?.name
-    let desc = propMap?.get(mapKey)?.description
+    const mapKey = props.mapKey
+    const mapObject = propMap?.get(mapKey) as {name : string, description: string}
+    let name = mapObject?.name
+    let desc = mapObject?.description
+
     
     useEffect(()=>{
         return () => {
@@ -17,9 +24,13 @@ const SetNewItemMap = function(props:{someMap : Map<string,{name: string, descri
         }
     
     },[testSetter])
+
+    useEffect(()=>{
+        finalMapState = propMap
+    },[propMap])
     
     return (
-        <Item name={name ?? 'Product'} description={desc ?? 'Available'} itemsSetter={testSetter} mapKey={props.mapKey} imageSrc='#' price={12.12}/>
+        <Item name={name ?? 'Product'} description={desc ?? 'Available'} itemsSetter={testSetter} mapKey={'testing'} imageSrc='#' price={12.12}/>
     )
    
 }
@@ -69,5 +80,25 @@ describe('Item renders correctly with props included',() => {
 
 })
 describe('Item updates itemsMap within state',() => {
+    const secondMap = new Map()
+    secondMap.set('default',someItem('Cart','Add this to your cart.'))
+    it('Item is added to cart through setter',()=>{
+
+        render(<SetNewItemMap someMap={secondMap} mapKey={'default'} />)
+        const target = screen.getByRole('button',{name : 'addToCart'})
+
+        expect(target).toBeInTheDocument()
+
+        userEvent.click(target)
+
+        expect(preRerenderSetter).toHaveBeenCalled()
+
+        const final = finalMapState?.get('testing') as cartItem
+        expect(final.item).toBeTruthy()
+        expect(final.itemAmount).toBeTruthy()
+        expect(final.itemPrice).toBeTruthy()
+
+        cleanup()
+    })
 
 })
