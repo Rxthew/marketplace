@@ -31,15 +31,13 @@ export const Item = function(props:itemProps): JSX.Element{
     <div>
         <h2>{props.name}</h2>
         <img src={props.imageSrc} alt={props.name}/>
-        <p>{props.description}</p>
-        <p>{props.price.toString()}</p>
+        <p data-testid='desc'>{props.description}</p>
+        <p data-testid='price'>{props.price.toString()}</p>
     </div>
     return (
         <div>
         {mapItem}
         <button type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
         </div>
-        
-
     )
 }
