@@ -29,8 +29,8 @@ const getAmount = function(obj:cartItem){
 
 const removeItem = function(key:string, setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>){
     setter(item => {
-        item?.delete(key)
         item = new Map(item)
+        item?.delete(key)
         return item
     })
 }
@@ -118,9 +118,10 @@ export const Cart = function(props:cartProps):JSX.Element{
                     let target = itemsMap.get(key)
                     let amount  = target ? getAmount(target) + 1 : false
                     if(amount){
+                        itemsMap = new Map(itemsMap)
                         let updatedObj = Object.assign({},target,{itemAmount:amount})
                         itemsMap.set(key,updatedObj)
-                        itemsMap = new Map(itemsMap)
+                        
                     }
                 }
                 return itemsMap
@@ -134,9 +135,10 @@ export const Cart = function(props:cartProps):JSX.Element{
                     let target = itemsMap.get(key)
                     let amount  = target ? getAmount(target) - 1 : -1
                     if(amount >= 0){
+                        itemsMap = new Map(itemsMap)
                         let updatedObj = Object.assign({},target,{itemAmount:amount})
                         itemsMap.set(key,updatedObj)
-                        itemsMap = new Map(itemsMap)
+                        
                     }
                 }
                 return itemsMap
