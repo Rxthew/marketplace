@@ -3,9 +3,8 @@ import {useEffect, useState } from 'react'
 import userEvent from '@testing-library/user-event'
 import {Cart, cartItem} from '../Cart'
 
-
-
 let preRerenderSetter: jest.Mock
+let finalMapState : Map<string,cartItem>| null
 
 const SetNewMap = function(props:{someMap : Map<string,cartItem> | null}){
         let [propMap, setPropMap] = useState<Map<string,cartItem>| null>(props.someMap)
@@ -17,6 +16,13 @@ const SetNewMap = function(props:{someMap : Map<string,cartItem> | null}){
             }
         
         },[testSetter])
+
+        useEffect(()=>{
+
+            finalMapState = propMap
+            
+        },[propMap])
+
         return (
             <Cart itemsMap={propMap} itemsSetter={testSetter}/>
         )
@@ -33,6 +39,7 @@ const someItem = (text:string) =>{
             
         )
     }
+
 describe('Cart renders props, including itemsMap, correctly', () => { 
     it('Cart renders default empty message if null passed in as prop',() => {
         render(<SetNewMap someMap={null} />)
@@ -72,28 +79,29 @@ describe('Cart renders props, including itemsMap, correctly', () => {
         cleanup()
     })
 
-    it('On unmount, card checks if there are any items with 0 as their item value and removes them accordingly', ()=>{
+    it('On mount, card checks if there are any items with 0 as their item value and removes them accordingly', ()=>{
+        
         const itemsWith0Map = new Map()
         itemsWith0Map.set('default',Object.assign({},someItem('past'),{itemAmount: 0}))
         itemsWith0Map.set('present',someItem('present'))
 
-        const {unmount} = render(<SetNewMap someMap={itemsWith0Map} />)
-        expect(screen.getByText('past')).toBeInTheDocument()
-        expect(screen.getByText('present')).toBeInTheDocument()
-        
-        unmount()
-
-        expect(itemsWith0Map.get('default')).toBeUndefined()
-        expect(itemsWith0Map.get('present')).toBeTruthy()
-
         render(<SetNewMap someMap={itemsWith0Map} />)
+
         expect(screen.queryByText('past')).not.toBeInTheDocument()
         expect(screen.getByText('present')).toBeInTheDocument()
+
+        expect(itemsWith0Map?.get('default')).toEqual(Object.assign({},someItem('past'),{itemAmount: 0}))
+        expect(itemsWith0Map?.get('present')).toEqual(someItem('present'))
+
+        expect(finalMapState?.get('default')).toBeUndefined()
+        expect(finalMapState?.get('present')).toEqual(someItem('present'))
+        
         cleanup()
     })
 
-    
+  
 })
+
 
 describe('Cart increments and decrements itemsAmount and adjusts price accordingly',() => {
     it('Item amount goes up when pressing the increment button',() => {
@@ -104,7 +112,7 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
 
         let target = screen.getByRole('button',{name: /increment/i})
         userEvent.click(target)
-        expect(incrementedMap.get('default').itemAmount).toBe(2)
+        expect(finalMapState?.get('default')?.itemAmount).toBe(2)
         expect(screen.getByTestId('amount').textContent).toBe('2')
         cleanup()
         
@@ -122,7 +130,7 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
         let target = screen.getByRole('button',{name: /decrement/i})
         userEvent.click(target)
         
-        expect(decrementedMap.get('default').itemAmount).toBe(0)
+        expect(finalMapState?.get('default')?.itemAmount).toBe(0)
         expect(screen.getByTestId('amount').textContent).toBe('0')
         cleanup()
 
@@ -132,11 +140,14 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
     })
     it('Item amount cannot be decremented beyond 0',() => {
         const another0Map = new Map()
-        another0Map.set('default',Object.assign({},someItem('default'),{itemAmount: 0}))
+        another0Map.set('default',someItem('default'))
 
         render(<SetNewMap someMap={another0Map} />)
-        expect(screen.getByTestId('amount').textContent).toBe('0')
+        expect(screen.getByTestId('amount').textContent).toBe('1')
+
         let target = screen.getByRole('button',{name: /decrement/i})
+        userEvent.click(target)
+        expect(screen.getByTestId('amount').textContent).toBe('0')
         userEvent.click(target)
         expect(screen.getByTestId('amount').textContent).toBe('0')
 
@@ -146,14 +157,17 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
     it('Values are changed through itemsSetter', () => {
         let incrementedMap2 = new Map()
         incrementedMap2.set('default',someItem('more incremented text'))
+
         render(<SetNewMap someMap={incrementedMap2}/>)
         let target =screen.getByRole('button',{name: /increment/i})
+
         userEvent.click(target)
         expect(preRerenderSetter).toHaveBeenCalled()
         cleanup()
 
         let decrementedMap2 = new Map()
         decrementedMap2.set('default',someItem('more decremented text'))
+
         render(<SetNewMap someMap={decrementedMap2}/>)
         let secondtarget = screen.getByRole('button',{name: /decrement/i})
         userEvent.click(secondtarget)
@@ -169,12 +183,15 @@ describe('Cart removes item from itemsMap if user clicks corresponding button',(
     it('Items are removed from itemsMap with itemsSetter if remove button is invoked by user', () => {
         let toBeRemoved = new Map()
         toBeRemoved.set('default', someItem('not in view'))
+
         render(<SetNewMap someMap={toBeRemoved}/>)
         expect(screen.getByText('not in view')).toBeInTheDocument()
+
         const target = screen.getByRole('button',{name: /remove/i})
         userEvent.click(target)
         expect(screen.queryByText('not in view')).not.toBeInTheDocument()
         expect(preRerenderSetter).toHaveBeenCalled()
+
         cleanup()
 
     })

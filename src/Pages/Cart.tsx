@@ -27,11 +27,17 @@ const getAmount = function(obj:cartItem){
     return obj.itemAmount
 }
 
-const removeItem = function(key:string, setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>){
+const removeItem = function(key:string, someNewMap:Map<string,cartItem> | null){
+        someNewMap?.delete(key)
+        return someNewMap
+    
+
+}
+
+const reduceMap = function(key: string, setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>){
     setter(item => {
-        item = new Map(item)
-        item?.delete(key)
-        return item
+        let newMap = new Map(item)
+        return removeItem(key, newMap)
     })
 }
 
@@ -49,14 +55,14 @@ const SingleItem =  function(props:singleItemProps){
                 <span data-testid='amount'>{amount}</span>
                 <button type='button' aria-label={'increment'} onClick={() => {increment(key)}}>Increment</button>
             </div>
-            <button type='button' aria-label={'remove'} onClick={() => {removeItem(key,itemsSetter)}}>Remove</button>
+            <button type='button' aria-label={'remove'} onClick={() => {reduceMap(key,itemsSetter)}}>Remove</button>
 
         </div>
         
     )
 }
 
-let lastMount = false;
+let firstMount = false;
 
 
 export const Cart = function(props:cartProps):JSX.Element{
@@ -70,48 +76,36 @@ export const Cart = function(props:cartProps):JSX.Element{
     let itemsSetter = props.itemsSetter
     let itemsMap = props.itemsMap
 
-    useEffect(()=> {
-        return () => {
-            lastMount = true
-        }
 
+    useEffect(()=>{
+        firstMount = true
     },[])
 
-    useEffect(()=> {
-
-        const removeEmptyOrders = function(){
-            itemsSetter(itemsMap => {
-                if(itemsMap){
-                    const items = Array.from(itemsMap.entries())
+    useEffect(()=>{
+        if(firstMount){
+            itemsSetter(function(iMap){
+                if(iMap){
+                    let newMap = new Map(iMap)
+                    const items = Array.from(newMap.entries())
                     for(let item of items){
                         let [key, obj] = item
                         if(getAmount(obj) === 0 ){
-                            removeItem(key,itemsSetter)
+                            removeItem(key,newMap)
                         }
-        
                     }
-                    
+                    return newMap   
                 }
-                return itemsMap
+                return iMap                
                 
             })
-        }  
-
-      return () => {
-
-        if(lastMount){
-
-            lastMount = false;
-            removeEmptyOrders();
-            
         }
-      }  
+        firstMount = false
+
     },[itemsSetter])
 
 
     useEffect(() => {
         
-    
         const incrementItem = function(key:string){
             itemsSetter(itemsMap => {
                 if(itemsMap){
@@ -158,12 +152,9 @@ export const Cart = function(props:cartProps):JSX.Element{
                 </div>
             )
             
-        }
-    
+        }    
 
     },[itemsMap, itemsSetter])
-
-    
 
     return (
         cartContent
