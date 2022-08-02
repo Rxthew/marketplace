@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState, useEffect } from "react"
+import React, { SetStateAction, useState, useEffect, useRef } from "react"
 import {v4 as genKey} from 'uuid'
 
 
@@ -62,8 +62,6 @@ const SingleItem =  function(props:singleItemProps){
     )
 }
 
-let firstMount = false;
-
 
 export const Cart = function(props:cartProps):JSX.Element{
 
@@ -75,14 +73,15 @@ export const Cart = function(props:cartProps):JSX.Element{
 
     let itemsSetter = props.itemsSetter
     let itemsMap = props.itemsMap
+    let onMount = useRef(false)
 
 
     useEffect(()=>{
-        firstMount = true
+        onMount.current = true
     },[])
 
     useEffect(()=>{
-        if(firstMount){
+        if(onMount.current){
             itemsSetter(function(iMap){
                 if(iMap){
                     let newMap = new Map(iMap)
@@ -99,7 +98,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                 
             })
         }
-        firstMount = false
+        onMount.current = false
 
     },[itemsSetter])
 
