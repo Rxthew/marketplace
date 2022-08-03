@@ -1,4 +1,5 @@
 import React, { SetStateAction } from "react"
+import { useParams } from "react-router-dom"
 import {cartItem} from "./Cart"
 
 interface itemEssenceProps {
@@ -31,7 +32,7 @@ export const ItemEssence = function(props:itemEssenceProps){
 export const Item = function(props:itemProps): JSX.Element{
 
     const essence = <ItemEssence name={props.name} description={props.description} imageSrc={props.imageSrc} price={props.price}/>
-
+    
     const addToCart = function(){
         const newItemsMap = {
             item : essence,

@@ -1,5 +1,6 @@
 import {useState} from 'react'
-import { Cart } from './Cart'
+import { Link, Outlet, Route, Routes } from 'react-router-dom'
+import { Cart, cartItem } from './Cart'
 import { Item, ItemEssence } from './Item'
 
 
@@ -19,6 +20,7 @@ const defaultItems = function(){
         'e','f',
         'g','h',
     ]
+
     const basicMaps = defaultArray.map(elem => {
        let elemMap =  new Map()
        elemMap.set(elem,{
@@ -33,21 +35,51 @@ const defaultItems = function(){
 
     return basicMaps
 
-    
 }
 
+const getSingleMap = function(elem:Map<any,any>){
+        const key = elem.keys().next().value
+        const map = elem.get(key)
+        return {map,key}
+}
+
+
 const Shop = function(){
+    let [itemsState, setItemsState] = useState<Map<string,cartItem>|null>(null)
+
     const basicMaps = defaultItems()
+    const generateRoutes = function(){
+        const basicMaps = defaultItems()
+        const finalisedRoutes = basicMaps.map(
+            function(elem){
+                const {map,key} = getSingleMap(elem)
+                const element = <Item name={map.name} description={map.description} imageSrc={map.imageSrc} price={map.price} mapKey={key} itemsSetter={setItemsState}/>
+                return <Route path={`products/${key}`} element={element}/>
+            }
+        )
+        return <Route>
+            {finalisedRoutes}
+            </Route>
+    }
+    
     const finalisedItems = basicMaps.map(
         function(elem){
-            const key = elem.keys().next().value
-            const map = elem.get(key)
-            return <ItemEssence name={map.name} description={map.description} imageSrc={map.imageSrc} price={map.price}/>
+            const {map,key} = getSingleMap(elem)
+            const element = <ItemEssence name={map.name} description={map.description} imageSrc={map.imageSrc} price={map.price}/>
+            return <Link to={`/products/${key}`} >{element}</Link>
     })
+
+    const indexPage = <div>
+                        <nav>
+                            {finalisedItems}
+                        </nav>
+                        <Outlet/>
+                    </div>
     return (
-        <div>
-            {finalisedItems}
-        </div>
+        <Route path="/" element={indexPage}>    
+            {generateRoutes()}
+        </Route>
+        
     ) 
 
 
