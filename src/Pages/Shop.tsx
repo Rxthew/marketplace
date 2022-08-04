@@ -65,23 +65,24 @@ const Shop = function(){
     const finalisedItems = basicMaps.map(
         function(elem){
             const {map,key} = getSingleMap(elem)
-            const element = <ItemEssence name={map.name} description={map.description} imageSrc={map.imageSrc} price={map.price}/>
+            const element = <ItemEssence name={map.name} imageSrc={map.imageSrc} price={map.price}/>
             return <Link to={`/products/${key}`} >{element}</Link>
     })
 
     const indexPage = <div>
                         <nav>
+                            <Link to={'/cart'}>{<button>Cart</button>}</Link>
                             {finalisedItems}
                         </nav>
                         <Outlet/>
                     </div>
     return (
-        <Route path="/" element={indexPage}>    
+        <Route path="/" element={indexPage}> 
+            <Route path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/>   
             {generateRoutes()}
         </Route>
         
     ) 
-
 
 }
 
