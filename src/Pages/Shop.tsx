@@ -14,14 +14,14 @@ interface shopItem {
 
     
 const defaultItems = function(){
-    const defaultArray = [
+    const defaultArray:string[] = [
         'a','b',
         'c','d',
         'e','f',
         'g','h',
     ]
 
-    const basicMaps = defaultArray.map(elem => {
+    const basicMaps:Map<string,shopItem>[] = defaultArray.map(elem => {
        let elemMap =  new Map()
        elemMap.set(elem,{
         mapKey: elem,
@@ -37,7 +37,7 @@ const defaultItems = function(){
 
 }
 
-const getSingleMap = function(elem:Map<any,any>){
+const getSingleMap = function(elem:Map<string,shopItem>){
         const key = elem.keys().next().value
         const map = elem.get(key)
         return {map,key}
@@ -53,19 +53,18 @@ const Shop = function(){
         const finalisedRoutes = basicMaps.map(
             function(elem){
                 const {map,key} = getSingleMap(elem)
-                const element = <Item name={map.name} description={map.description} imageSrc={map.imageSrc} price={map.price} mapKey={key} itemsSetter={setItemsState}/>
-                return <Route path={`products/${key}`} element={element}/>
+                const element = <Item name={map?.name ?? 'Coming soon'} description={map?.description ?? 'Product description not available at this time'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0} mapKey={key} itemsSetter={setItemsState}/>
+                return <Route path={`/products/${key}`} element={element}/>
             }
         )
-        return <Route>
-            {finalisedRoutes}
-            </Route>
+        return finalisedRoutes
+            
     }
     
     const finalisedItems = basicMaps.map(
         function(elem){
             const {map,key} = getSingleMap(elem)
-            const element = <ItemEssence name={map.name} imageSrc={map.imageSrc} price={map.price}/>
+            const element = <ItemEssence name={map?.name ?? 'Coming soon'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0}/>
             return <Link to={`/products/${key}`} >{element}</Link>
     })
 
@@ -77,11 +76,12 @@ const Shop = function(){
                         <Outlet/>
                     </div>
     return (
-        <Route path="/" element={indexPage}> 
+        <Routes>
+            <Route path="/" element={indexPage}/> 
             <Route path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/>   
             {generateRoutes()}
-        </Route>
-        
+        </Routes>
+            
     ) 
 
 }
