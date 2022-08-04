@@ -1,11 +1,10 @@
 import React, { SetStateAction } from "react"
-import { useParams } from "react-router-dom"
 import {cartItem} from "./Cart"
 
 interface itemEssenceProps {
     readonly name : string
     readonly imageSrc : string
-    readonly description : string
+    readonly description? : string
     readonly price : number
 
 }
@@ -13,19 +12,29 @@ interface itemEssenceProps {
 interface itemProps extends itemEssenceProps {
     readonly mapKey : string
     readonly itemsSetter : React.Dispatch<SetStateAction<Map<string,cartItem> | null>>
+    readonly description: string
     
 
 }
 
 export const ItemEssence = function(props:itemEssenceProps){
-    return (
-        <div>
-            <h2>{props.name}</h2>
-            <img src={props.imageSrc} alt={props.name}/>
-            <p data-testid='desc'>{props.description}</p>
-            <p data-testid='price'>{props.price.toString()}</p>
-        </div>
-    )
+    if(props.description){
+        return (
+            <div>
+                <h2>{props.name}</h2>
+                <img src={props.imageSrc} alt={props.name}/>
+                <p data-testid='desc'>{props.description}</p>
+                <p data-testid='price'>{props.price.toString()}</p>
+            </div>
+        )
+        }
+        return(
+            <div>
+                <h2>{props.name}</h2>
+                <img src={props.imageSrc} alt={props.name}/>
+                <p data-testid='price'>{props.price.toString()}</p>
+            </div>
+        )
 
 }
 
