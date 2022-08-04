@@ -80,9 +80,10 @@ describe('Item renders correctly with props included',() => {
 
 })
 describe('Item updates itemsMap within state',() => {
-    const secondMap = new Map()
-    secondMap.set('default',someItem('Cart','Add this to your cart.'))
+    
     it('Item is added to cart through setter',()=>{
+        const secondMap = new Map()
+        secondMap.set('default',someItem('Cart','Add this to your cart.'))
 
         render(<SetNewItemMap someMap={secondMap} mapKey={'default'} />)
         const target = screen.getByRole('button',{name : 'addToCart'})
@@ -100,5 +101,21 @@ describe('Item updates itemsMap within state',() => {
 
         cleanup()
     })
+    it('If Item already in cart then adds to current amount through setter',()=>{
+        const thirdMap = new Map()
+        thirdMap.set('default',someItem('Cart','Item already here'))
+
+        render(<SetNewItemMap someMap={thirdMap} mapKey={'default'} />)
+        const target = screen.getByRole('button',{name : 'addToCart'})
+        userEvent.click(target)
+        userEvent.click(target)
+        expect(preRerenderSetter).toHaveBeenCalled()
+
+        const finalAmount = finalMapState?.get('testing') as cartItem
+        expect(finalAmount.itemAmount).toBe(2)
+        
+        cleanup()
+    })
+
 
 })

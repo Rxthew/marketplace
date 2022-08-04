@@ -41,20 +41,43 @@ export const ItemEssence = function(props:itemEssenceProps){
 export const Item = function(props:itemProps): JSX.Element{
 
     const essence = <ItemEssence name={props.name} description={props.description} imageSrc={props.imageSrc} price={props.price}/>
+
+    const addToCartItem = function(newMapObject:Map<string,cartItem>){
+
+        const newItemsObj = function(amount:number){
+         
+           return {
+                item : essence,
+                itemAmount : ++amount,
+                itemPrice : props.price
+
+            }
+        }
+        let oldAmount = newMapObject.get(props.mapKey)?.itemAmount
+        newMapObject.set(props.mapKey,newItemsObj(oldAmount ?? 0))
+        return newMapObject        
+    }
+
+    const newItemsObj = {
+        item : essence,
+        itemAmount : 1,
+        itemPrice : props.price
+    }
     
     const addToCart = function(){
-        const newItemsMap = {
-            item : essence,
-            itemAmount : 1,
-            itemPrice : props.price
-        }
-
         props.itemsSetter(itemsMap => {
             const newMapObject = new Map(itemsMap)
-            newMapObject.set(props.mapKey,newItemsMap)
+            
+            if(newMapObject.has(props.mapKey)){
+                return addToCartItem(newMapObject)
+            }
+
+            newMapObject.set(props.mapKey,newItemsObj)
             return newMapObject
         })
     }
+ 
+
     return (
         <div>
         {essence}
