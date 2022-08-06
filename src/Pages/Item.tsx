@@ -81,11 +81,13 @@ export const Item = function(props:itemProps): JSX.Element{
 
     return (
         <div>
-        <Link to='/products'>
-            <button type='button'>Back to Marketplace</button>
-        </Link>
-        {essence}
-        <button type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
+            <Link to='/products'>
+                <button type='button'>Back to Marketplace</button>
+            </Link>
+            {essence}
+            <Link to='/cart'>
+                <button type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
+            </Link>                
         </div>
     )
 }

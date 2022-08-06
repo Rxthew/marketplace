@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { Link, Outlet, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import { Cart, cartItem } from './Cart'
 import { Item, ItemEssence } from './Item'
 
@@ -73,7 +73,6 @@ const Shop = function(){
                             <Link to={'/cart'}>{<button>Cart</button>}</Link>
                             {finalisedItems}
                         </nav>
-                        <Outlet/>
                     </div>
     return (
         <Routes>
