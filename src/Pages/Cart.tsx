@@ -1,4 +1,5 @@
 import React, { SetStateAction, useState, useEffect, useRef } from "react"
+import { Link, Outlet} from "react-router-dom"
 import {v4 as genKey} from 'uuid'
 
 
@@ -67,6 +68,9 @@ export const Cart = function(props:cartProps):JSX.Element{
 
     let [cartContent,setCartContent] = useState<JSX.Element>(
     <div>
+        <Link to='/products'>
+            <button type='button'>Back to Marketplace</button>
+        </Link>
         <span>Your cart is empty</span>
     </div>
     )
@@ -147,7 +151,11 @@ export const Cart = function(props:cartProps):JSX.Element{
             )
             setCartContent(
                 <div>
+                    <Link to='/products'>
+                        <button type='button'>Back to Marketplace</button>
+                    </Link>
                     {renderedItems}
+                    <Outlet/>
                 </div>
             )
             

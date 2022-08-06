@@ -1,4 +1,5 @@
 import React, { SetStateAction } from "react"
+import { Link} from "react-router-dom"
 import {cartItem} from "./Cart"
 
 interface itemEssenceProps {
@@ -80,6 +81,9 @@ export const Item = function(props:itemProps): JSX.Element{
 
     return (
         <div>
+        <Link to='/products'>
+            <button type='button'>Back to Marketplace</button>
+        </Link>
         {essence}
         <button type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
         </div>
