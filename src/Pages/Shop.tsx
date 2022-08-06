@@ -78,7 +78,8 @@ const Shop = function(){
     return (
         <Routes>
             <Route path="/" element={indexPage}/> 
-            <Route path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/>   
+            <Route path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/> 
+            <Route path="/products" element={indexPage}/>  
             {generateRoutes()}
         </Routes>
             
