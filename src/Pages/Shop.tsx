@@ -38,8 +38,8 @@ const defaultItems = function():Map<string,shopItem>[]{
 }
 
 const getSingleMap = function(elem:Map<string,shopItem>):{map : shopItem | undefined, key : string}{
-        const key = elem.keys().next().value
-        const map = elem.get(key)
+    const key = elem.keys().next().value
+    const map = elem.get(key)
         return {map,key}
 }
 

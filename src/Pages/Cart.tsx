@@ -1,5 +1,5 @@
 import React, { SetStateAction, useState, useEffect, useRef } from "react"
-import { Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import {v4 as genKey} from 'uuid'
 
 
@@ -53,11 +53,11 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
         <div key={genKey()}>
             {itemObject.item}
             <div>
-                <button type='button' aria-label={'decrement'} onClick = {() => {decrement(key)}}>Decrement</button>
-                <span data-testid='amount'>{amount}</span>
-                <button type='button' aria-label={'increment'} onClick={() => {increment(key)}}>Increment</button>
+                <button type='button' aria-label={`decrement.${key}`} onClick = {() => {decrement(key)}}>Decrement</button>
+                <span data-testid={`amount.${key}`}>{amount}</span>
+                <button type='button' aria-label={`increment.${key}`} onClick={() => {increment(key)}}>Increment</button>
             </div>
-            <button type='button' aria-label={'remove'} onClick={() => {reduceMap(key,itemsSetter)}}>Remove</button>
+            <button type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}>Remove</button>
 
         </div>
         
@@ -66,7 +66,6 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
 
 
 export const Cart = function(props:cartProps):JSX.Element{
-
 
     const itemsSetter = props.itemsSetter 
     let itemsMap = props.itemsMap 
@@ -80,7 +79,7 @@ export const Cart = function(props:cartProps):JSX.Element{
         <span>Your cart is empty</span>
         <div>
             <span>Subtotal:</span>
-            <span>${0}</span>
+            <span data-testid='totalPrice'>${0}</span>
         </div>
     </div>
     )
@@ -172,7 +171,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                         {subTotal === 0 ? <span>Your cart is empty</span> : renderedItems}
                         <div>
                             <span>Subtotal:</span>
-                            <span>${subTotal=== 0 ? 0 :subTotal.toFixed(2)}</span>
+                            <span data-testid='totalPrice'>${subTotal=== 0 ? 0 :subTotal.toFixed(2)}</span>
                         </div>
                     </div>
                 )

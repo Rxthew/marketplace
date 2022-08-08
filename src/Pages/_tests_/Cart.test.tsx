@@ -1,5 +1,6 @@
 import {cleanup, render, screen} from '@testing-library/react'
 import {useEffect, useState } from 'react'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
 import {Cart, cartItem} from '../Cart'
 
@@ -24,7 +25,12 @@ const SetNewMap = function(props:{someMap : Map<string,cartItem> | null}){
         },[propMap])
 
         return (
-            <Cart itemsMap={propMap} itemsSetter={testSetter}/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Cart itemsMap={propMap} itemsSetter={testSetter}/>}/> 
+                </Routes>         
+            </BrowserRouter>
+            
         )
        
     }
@@ -46,8 +52,6 @@ describe('Cart renders props, including itemsMap, correctly', () => {
         const target = screen.getByText('Your cart is empty')
         expect(target).toBeInTheDocument()
         cleanup()
-        
-
     })
 
     it('Cart renders first item from Map',() => {
@@ -108,48 +112,92 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
         let incrementedMap = new Map()
         incrementedMap.set('default',someItem('incremented text'))
         render(<SetNewMap someMap={incrementedMap}/>)
-        expect(screen.getByTestId('amount').textContent).toBe('1')
+        expect(screen.getByTestId('amount.default').textContent).toBe('1')
 
-        let target = screen.getByRole('button',{name: /increment/i})
+        let target = screen.getByRole('button',{name: /increment.default/i})
         userEvent.click(target)
+    
         expect(finalMapState?.get('default')?.itemAmount).toBe(2)
-        expect(screen.getByTestId('amount').textContent).toBe('2')
+        expect(screen.getByTestId('amount.default').textContent).toBe('2')
+
         cleanup()
         
 
     })
     it('Item price is added to current total when pressing the increment button',()=> {
+        let incrementedPrice = new Map()
+        incrementedPrice.set('more',someItem('more'))
+        
+        render(<SetNewMap someMap={incrementedPrice}/>)
+        
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$10.00")
+
+        const incrementor = () => screen.getByRole('button',{name: /increment.more/i})
+        
+        userEvent.click(incrementor())
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$20.00")
+
+        userEvent.click(incrementor())
+        userEvent.click(incrementor())
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$40.00")
+
+        cleanup()
+
 
     })
     it('Item amount goes down when pressing the decrement button',() => {
         let decrementedMap = new Map()
         decrementedMap.set('default',someItem('decremented text'))
+        decrementedMap.set('another',someItem('another'))
+
         render(<SetNewMap someMap={decrementedMap}/>)
-        expect(screen.getByTestId('amount').textContent).toBe('1')
+        expect(screen.getByTestId('amount.default').textContent).toBe('1')
         
-        let target = screen.getByRole('button',{name: /decrement/i})
+        let target = screen.getByRole('button',{name: /decrement.default/i})
         userEvent.click(target)
         
         expect(finalMapState?.get('default')?.itemAmount).toBe(0)
-        expect(screen.getByTestId('amount').textContent).toBe('0')
+        expect(screen.getByTestId('amount.default').textContent).toBe('0')
+
+        expect(finalMapState?.get('another')?.itemAmount).toBe(1)
+        expect(screen.getByTestId('amount.another').textContent).toBe('1')
+
+
         cleanup()
 
     })
     it('Item price is subtracted from current total when pressing the decrement button',()=> {
+        let decrementedPrice = new Map()
+        decrementedPrice.set('less',someItem('less'))
+        decrementedPrice.set('default',someItem('default'))
+        
+        render(<SetNewMap someMap={decrementedPrice}/>)
+        
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$20.00")
+
+        const decrementor = screen.getByRole('button',{name: /decrement.less/i})
+        
+        userEvent.click(decrementor)
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$10.00")
+        
+        cleanup()
 
     })
     it('Item amount cannot be decremented beyond 0',() => {
         const another0Map = new Map()
         another0Map.set('default',someItem('default'))
+        another0Map.set('buffer', someItem('buffer'))
 
         render(<SetNewMap someMap={another0Map} />)
-        expect(screen.getByTestId('amount').textContent).toBe('1')
+        expect(screen.getByTestId('amount.default').textContent).toBe('1')
 
-        let target = screen.getByRole('button',{name: /decrement/i})
-        userEvent.click(target)
-        expect(screen.getByTestId('amount').textContent).toBe('0')
-        userEvent.click(target)
-        expect(screen.getByTestId('amount').textContent).toBe('0')
+        let target = () => screen.getByRole('button',{name: /decrement.default/i})
+
+        userEvent.click(target())
+        expect(screen.getByTestId('amount.default').textContent).toBe('0')
+
+        userEvent.click(target())
+        expect(screen.getByTestId('amount.default').textContent).toBe('0')
 
         cleanup()
         
@@ -159,7 +207,7 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
         incrementedMap2.set('default',someItem('more incremented text'))
 
         render(<SetNewMap someMap={incrementedMap2}/>)
-        let target =screen.getByRole('button',{name: /increment/i})
+        let target =screen.getByRole('button',{name: /increment.default/i})
 
         userEvent.click(target)
         expect(preRerenderSetter).toHaveBeenCalled()
@@ -169,7 +217,7 @@ describe('Cart increments and decrements itemsAmount and adjusts price according
         decrementedMap2.set('default',someItem('more decremented text'))
 
         render(<SetNewMap someMap={decrementedMap2}/>)
-        let secondtarget = screen.getByRole('button',{name: /decrement/i})
+        let secondtarget = screen.getByRole('button',{name: /decrement.default/i})
         userEvent.click(secondtarget)
         expect(preRerenderSetter).toHaveBeenCalled()
         cleanup()
@@ -187,7 +235,7 @@ describe('Cart removes item from itemsMap if user clicks corresponding button',(
         render(<SetNewMap someMap={toBeRemoved}/>)
         expect(screen.getByText('not in view')).toBeInTheDocument()
 
-        const target = screen.getByRole('button',{name: /remove/i})
+        const target = screen.getByRole('button',{name: /remove.default/i})
         userEvent.click(target)
         expect(screen.queryByText('not in view')).not.toBeInTheDocument()
         expect(preRerenderSetter).toHaveBeenCalled()
@@ -195,7 +243,44 @@ describe('Cart removes item from itemsMap if user clicks corresponding button',(
         cleanup()
 
     })
+    it('Default "empty cart" items are rendered when all items are removed',() =>{
+        let secondToBeRemoved = new Map()
+        secondToBeRemoved.set('removal',someItem('removal'))
 
+        render(<SetNewMap someMap={secondToBeRemoved}/>)
+
+        const target = screen.getByRole('button',{name : /remove.removal/i})
+        userEvent.click(target)
+        expect(screen.getByText('Your cart is empty')).toBeInTheDocument()
+        
+        cleanup()
+
+    })
+    it('Item price (corresponding to amounts) deducted from total when item is removed',() => {
+        let thirdToBeRemoved = new Map()
+        thirdToBeRemoved.set('deduct',someItem('deduct'))
+        thirdToBeRemoved.set('static',someItem('static'))
+
+        render(<SetNewMap someMap={thirdToBeRemoved}/>)
+        
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$20.00")
+
+        const incrementor = screen.getByRole('button',{name: /increment.deduct/i})
+        userEvent.click(incrementor)
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$30.00")
+
+        const decrementor = screen.getByRole('button',{name: /decrement.deduct/i})
+        userEvent.click(decrementor)   
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$20.00")
+
+        const remover = screen.getByRole('button',{name : /remove.deduct/i})
+        userEvent.click(remover)
+        expect(screen.getByTestId('totalPrice').textContent).toBe("$10.00")
+
+        cleanup()
+
+    })
+    
     
 })
 
