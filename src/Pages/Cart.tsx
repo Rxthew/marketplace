@@ -154,7 +154,7 @@ export const Cart = function(props:cartProps):JSX.Element{
         const reconcileSubTotal = function(itemArr:[string,cartItem][]){
             const relevantData = itemArr.map(elem => elem[1].itemAmount * elem[1].itemPrice)
             const initialValue = 0
-            const subTotal = relevantData.reduce((prev,current) => prev + current,initialValue)
+            const subTotal = relevantData.reduce((prev,current) => parseFloat(prev.toFixed(2)) + parseFloat(current.toFixed(2)),initialValue)
             return subTotal
         }
 
@@ -188,7 +188,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                         {renderedItems}
                         <div>
                             <span>Subtotal:</span>
-                            <span>${subTotal}</span>
+                            <span>${subTotal.toFixed(2)}</span>
                         </div>
                     </div>
                 )

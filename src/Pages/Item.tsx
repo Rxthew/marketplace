@@ -25,7 +25,7 @@ export const ItemEssence = function(props:itemEssenceProps){
                 <h2>{props.name}</h2>
                 <img src={props.imageSrc} alt={props.name}/>
                 <p data-testid='desc'>{props.description}</p>
-                <p data-testid='price'>{props.price.toString()}</p>
+                <p data-testid='price'>{props.price.toFixed(2)}</p>
             </div>
         )
         }
@@ -33,7 +33,7 @@ export const ItemEssence = function(props:itemEssenceProps){
             <div>
                 <h2>{props.name}</h2>
                 <img src={props.imageSrc} alt={props.name}/>
-                <p data-testid='price'>{props.price.toString()}</p>
+                <p data-testid='price'>{props.price.toFixed(2)}</p>
             </div>
         )
 
