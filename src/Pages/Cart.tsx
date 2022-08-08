@@ -163,18 +163,37 @@ export const Cart = function(props:cartProps):JSX.Element{
             const renderedItems = itemsArray.map(elem => 
                 <SingleItem key={genKey()} mapKey={elem[0]} itemObject={elem[1]} setter={itemsSetter} increment={incrementItem} decrement={decrementItem} />
             )
-            setCartContent(
-                <div>
-                    <Link to='/products'>
-                        <button type='button'>Back to Marketplace</button>
-                    </Link>
-                    {renderedItems}
+            const subTotal = reconcileSubTotal(itemsArray)
+            if(subTotal === 0){
+                setCartContent(
                     <div>
-                        <span>Subtotal:</span>
-                        <span>${reconcileSubTotal(itemsArray)}</span>
+                        <Link to='/products'>
+                            <button type='button'>Back to Marketplace</button>
+                        </Link>
+                        <span>Your cart is empty</span>
+                        <div>
+                            <span>Subtotal:</span>
+                            <span>${0}</span>
+                        </div>
                     </div>
-                </div>
-            )
+                )
+                
+            }
+            else {
+                setCartContent(
+                    <div>
+                        <Link to='/products'>
+                            <button type='button'>Back to Marketplace</button>
+                        </Link>
+                        {renderedItems}
+                        <div>
+                            <span>Subtotal:</span>
+                            <span>${subTotal}</span>
+                        </div>
+                    </div>
+                )
+
+            }
             
         }    
 
