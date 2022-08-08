@@ -1,6 +1,6 @@
 import React, { SetStateAction } from "react"
-import { Link} from "react-router-dom"
-import {cartItem} from "./Cart"
+import { Link } from "react-router-dom"
+import { cartItem } from "./Cart"
 
 interface itemEssenceProps {
     readonly name : string
@@ -18,7 +18,7 @@ interface itemProps extends itemEssenceProps {
 
 }
 
-export const ItemEssence = function(props:itemEssenceProps){
+export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
     if(props.description){
         return (
             <div>
@@ -39,11 +39,11 @@ export const ItemEssence = function(props:itemEssenceProps){
 
 }
 
-export const Item = function(props:itemProps): JSX.Element{
+export const Item = function(props:itemProps):JSX.Element{
 
     const essence = <ItemEssence name={props.name} description={props.description} imageSrc={props.imageSrc} price={props.price}/>
 
-    const addToCartItem = function(newMapObject:Map<string,cartItem>){
+    const addToCartItem = function(newMapObject:Map<string,cartItem>):Map<string,cartItem>{
 
         const newItemsObj = function(amount:number){
          
@@ -65,7 +65,7 @@ export const Item = function(props:itemProps): JSX.Element{
         itemPrice : props.price
     }
     
-    const addToCart = function(){
+    const addToCart = function():void{
         props.itemsSetter(itemsMap => {
             const newMapObject = new Map(itemsMap)
             

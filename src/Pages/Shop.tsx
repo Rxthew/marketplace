@@ -13,7 +13,7 @@ interface shopItem {
 }
 
     
-const defaultItems = function(){
+const defaultItems = function():Map<string,shopItem>[]{
     const defaultArray:string[] = [
         'a','b',
         'c','d',
@@ -21,7 +21,7 @@ const defaultItems = function(){
         'g','h',
     ]
 
-    const basicMaps:Map<string,shopItem>[] = defaultArray.map(elem => {
+    const basicMaps = defaultArray.map(elem => {
        let elemMap =  new Map()
        elemMap.set(elem,{
         mapKey: elem,
@@ -37,14 +37,14 @@ const defaultItems = function(){
 
 }
 
-const getSingleMap = function(elem:Map<string,shopItem>){
+const getSingleMap = function(elem:Map<string,shopItem>):{map : shopItem | undefined, key : string}{
         const key = elem.keys().next().value
         const map = elem.get(key)
         return {map,key}
 }
 
 
-const Shop = function(){
+const Shop = function():JSX.Element{
     let [itemsState, setItemsState] = useState<Map<string,cartItem>|null>(null)
 
     const basicMaps = defaultItems()
@@ -61,14 +61,14 @@ const Shop = function(){
             
     }
     
-    const finalisedItems = basicMaps.map(
+    const finalisedItems:JSX.Element[] = basicMaps.map(
         function(elem){
             const {map,key} = getSingleMap(elem)
             const element = <ItemEssence name={map?.name ?? 'Coming soon'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0}/>
             return <Link to={`/products/${key}`} >{element}</Link>
     })
 
-    const indexPage = <div>
+    const indexPage:JSX.Element = <div>
                         <nav>
                             <Link to={'/cart'}>{<button>Cart</button>}</Link>
                             {finalisedItems}

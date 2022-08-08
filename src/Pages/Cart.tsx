@@ -26,24 +26,24 @@ interface singleItemProps {
 }
 
 
-const getAmount = function(obj:cartItem){
+const getAmount = function(obj:cartItem):number{
     return obj.itemAmount
 }
 
-const removeItem = function(key:string, someNewMap:Map<string,cartItem> | null){
+const removeItem = function(key:string, someNewMap:Map<string,cartItem> | null):Map<string,cartItem> | null{
         someNewMap?.delete(key)
         return someNewMap
     
 }
 
-const reduceMap = function(key: string, setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>){
+const reduceMap = function(key: string, setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>):void{
     setter(item => {
         let newMap = new Map(item)
         return removeItem(key, newMap)
     })
 }
 
-const SingleItem =  function(props:singleItemProps){
+const SingleItem =  function(props:singleItemProps):JSX.Element{
 
     const [key,itemsSetter,decrement,increment] = [props.mapKey, props.setter,props.decrement,props.increment]
     let itemObject = props.itemObject
@@ -70,7 +70,7 @@ export const Cart = function(props:cartProps):JSX.Element{
 
     const itemsSetter = props.itemsSetter 
     let itemsMap = props.itemsMap 
-    let onMount = useRef(false)
+    let onMount:React.MutableRefObject<boolean> = useRef(false)
     
     let [cartContent,setCartContent] = useState<JSX.Element>(
     <div>
@@ -116,7 +116,7 @@ export const Cart = function(props:cartProps):JSX.Element{
 
     useEffect(() => {
         
-        const incrementItem = function(key:string){
+        const incrementItem = function(key:string):void{
             itemsSetter(itemsMap => {
                 if(itemsMap){
                     let target = itemsMap.get(key)
@@ -133,7 +133,7 @@ export const Cart = function(props:cartProps):JSX.Element{
     
         }
                
-        const decrementItem = function(key:string){
+        const decrementItem = function(key:string):void{
             itemsSetter(itemsMap => {
                 if(itemsMap){
                     let target = itemsMap.get(key)
@@ -151,7 +151,7 @@ export const Cart = function(props:cartProps):JSX.Element{
         }
 
 
-        const reconcileSubTotal = function(itemArr:[string,cartItem][]){
+        const reconcileSubTotal = function(itemArr:[string,cartItem][]):number{
             const relevantData = itemArr.map(elem => elem[1].itemAmount * elem[1].itemPrice)
             const initialValue = 0
             const subTotal = relevantData.reduce((prev,current) => parseFloat(prev.toFixed(2)) + parseFloat(current.toFixed(2)),initialValue)
@@ -159,11 +159,11 @@ export const Cart = function(props:cartProps):JSX.Element{
         }
 
         if(itemsMap){
-            const itemsArray =  Array.from(itemsMap.entries())
-            const renderedItems = itemsArray.map(elem => 
+            const itemsArray:[string,cartItem][] =  Array.from(itemsMap.entries())
+            const renderedItems:JSX.Element[] = itemsArray.map(elem => 
                 <SingleItem key={genKey()} mapKey={elem[0]} itemObject={elem[1]} setter={itemsSetter} increment={incrementItem} decrement={decrementItem} />
             )
-            const subTotal = reconcileSubTotal(itemsArray)  
+            const subTotal:number = reconcileSubTotal(itemsArray)  
                 setCartContent(
                     <div>
                         <Link to='/products'>
