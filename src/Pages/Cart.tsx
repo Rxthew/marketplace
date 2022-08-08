@@ -1,12 +1,13 @@
 import React, { SetStateAction, useState, useEffect, useRef } from "react"
-import { Link, Outlet} from "react-router-dom"
+import { Link} from "react-router-dom"
 import {v4 as genKey} from 'uuid'
 
 
 export interface cartItem {
     readonly item : JSX.Element,
-    itemAmount : number
+    itemAmount : number,
     readonly itemPrice : number
+    
 }
 
 interface cartProps {
@@ -24,6 +25,7 @@ interface singleItemProps {
     
 }
 
+
 const getAmount = function(obj:cartItem){
     return obj.itemAmount
 }
@@ -32,7 +34,6 @@ const removeItem = function(key:string, someNewMap:Map<string,cartItem> | null){
         someNewMap?.delete(key)
         return someNewMap
     
-
 }
 
 const reduceMap = function(key: string, setter:React.Dispatch<SetStateAction<Map<string,cartItem> | null>>){
@@ -66,18 +67,24 @@ const SingleItem =  function(props:singleItemProps){
 
 export const Cart = function(props:cartProps):JSX.Element{
 
+
+    const itemsSetter = props.itemsSetter 
+    let itemsMap = props.itemsMap 
+    let onMount = useRef(false)
+    
     let [cartContent,setCartContent] = useState<JSX.Element>(
     <div>
         <Link to='/products'>
             <button type='button'>Back to Marketplace</button>
         </Link>
         <span>Your cart is empty</span>
+        <div>
+            <span>Subtotal:</span>
+            <span>${0}</span>
+        </div>
     </div>
     )
 
-    let itemsSetter = props.itemsSetter
-    let itemsMap = props.itemsMap
-    let onMount = useRef(false)
 
 
     useEffect(()=>{
@@ -125,7 +132,7 @@ export const Cart = function(props:cartProps):JSX.Element{
             })
     
         }
-        
+               
         const decrementItem = function(key:string){
             itemsSetter(itemsMap => {
                 if(itemsMap){
@@ -139,9 +146,16 @@ export const Cart = function(props:cartProps):JSX.Element{
                     }
                 }
                 return itemsMap
-            })
-            
-        
+            })    
+       
+        }
+
+
+        const reconcileSubTotal = function(itemArr:[string,cartItem][]){
+            const relevantData = itemArr.map(elem => elem[1].itemAmount * elem[1].itemPrice)
+            const initialValue = 0
+            const subTotal = relevantData.reduce((prev,current) => prev + current,initialValue)
+            return subTotal
         }
 
         if(itemsMap){
@@ -155,13 +169,17 @@ export const Cart = function(props:cartProps):JSX.Element{
                         <button type='button'>Back to Marketplace</button>
                     </Link>
                     {renderedItems}
-                    <Outlet/>
+                    <div>
+                        <span>Subtotal:</span>
+                        <span>${reconcileSubTotal(itemsArray)}</span>
+                    </div>
                 </div>
             )
             
         }    
 
     },[itemsMap, itemsSetter])
+
 
     return (
         cartContent
