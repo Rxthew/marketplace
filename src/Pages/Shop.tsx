@@ -1,7 +1,9 @@
-import {useState} from 'react'
+import  products from '../Images/products'
+import { Item, ItemEssence } from './Item'
+import { useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import { Cart, cartItem } from './Cart'
-import { Item, ItemEssence } from './Item'
+
 
 
 interface shopItem {
@@ -14,20 +16,21 @@ interface shopItem {
 
     
 const defaultItems = function():Map<string,shopItem>[]{
-    const defaultArray:string[] = [
-        'a','b',
-        'c','d',
-        'e','f',
-        'g','h',
+    const defaultArray:[string,string][] = [
+        ['Camera', products.camera],['Toolbox',products.toolbox],
+        ['Kettle',products.kettle],['Reel',products.reel],
+        ['Basket',products.basket],['Drive',products.drive],
+        ['Perfume',products.perfume],['Bicycle',products.bike],
     ]
 
     const basicMaps = defaultArray.map(elem => {
        let elemMap =  new Map()
-       elemMap.set(elem,{
-        mapKey: elem,
-        name: '#',
-        imageSrc: '#',
-        description: '#',
+       elemMap.set(elem[0],{
+        mapKey: elem[0],
+        name: elem[0],
+        imageSrc: elem[1],
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'+
+                     ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         price: 10
        })
        return elemMap
