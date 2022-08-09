@@ -1,13 +1,16 @@
+import { cleanup, render, screen } from '@testing-library/react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
-import {cleanup, render, screen} from '@testing-library/react'
-import {useState, useEffect} from 'react'
-import {Item} from '../Item'
 import { cartItem } from '../Cart'
+import { Item } from '../Item'
+import { useEffect,useState } from 'react'
+
 
 type setMapType = Map<string,{name: string, description:string} | cartItem> | null
 
 let preRerenderSetter: jest.Mock
 let finalMapState: setMapType
+
 const SetNewItemMap = function(props:{someMap : setMapType ,mapKey:string}){
 
     let [propMap, setPropMap] = useState<setMapType>(props.someMap)
@@ -30,7 +33,13 @@ const SetNewItemMap = function(props:{someMap : setMapType ,mapKey:string}){
     },[propMap])
     
     return (
-        <Item name={name ?? 'Product'} description={desc ?? 'Available'} itemsSetter={testSetter} mapKey={'testing'} imageSrc='#' price={12.12}/>
+        <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Item name={name ?? 'Product'} description={desc ?? 'Available'} itemsSetter={testSetter} mapKey={'testing'} imageSrc='#' price={12.12}/>}/>
+            <Route path="/cart" element={<Item name={name ?? 'Product'} description={desc ?? 'Available'} itemsSetter={testSetter} mapKey={'testing'} imageSrc='#' price={12.12}/>}/> 
+        </Routes>         
+    </BrowserRouter>
+        
     )
    
 }

@@ -1,7 +1,6 @@
-import React from 'react';
-import {Route, Routes,BrowserRouter} from 'react-router-dom'
 import Shop from './Pages/Shop';
 import './App.css';
+import { BrowserRouter } from 'react-router-dom'
 
 
 function App() {
