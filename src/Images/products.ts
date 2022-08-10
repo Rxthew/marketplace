@@ -1,4 +1,4 @@
-import camera from './black-white-camera.jpg'
+import camera from './black-grey-camera.jpg'
 import reel from './fishing-reel.jpg'
 import drive from './hard-drive.jpg'
 import kettle from './kettle.jpg'
