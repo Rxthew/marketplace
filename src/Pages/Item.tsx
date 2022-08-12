@@ -1,12 +1,15 @@
-import React, { SetStateAction } from "react"
+import React, { MutableRefObject, SetStateAction, useEffect, useRef, useState } from "react"
+import Skeleton from "react-loading-skeleton"
 import { Link } from "react-router-dom"
 import { cartItem } from "./Cart"
+import 'react-loading-skeleton/dist/skeleton.css'
 
 interface itemEssenceProps {
     readonly name : string
     readonly imageSrc : string
     readonly description? : string
     readonly price : number
+
 
 }
 
@@ -18,21 +21,44 @@ interface itemProps extends itemEssenceProps {
 
 }
 
+
 export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
+    let [imageVisible, setImageVisible] = useState<boolean>(false)
+    const target= useRef() as MutableRefObject<HTMLDivElement> | undefined
+
+
+    useEffect(()=>{
+        let latestTarget = target?.current
+        const observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry => entry.isIntersecting ? setImageVisible(true) : false)
+        })
+        if(latestTarget){
+            observer.observe(latestTarget as HTMLDivElement)
+            
+
+        }
+        return () => {
+            if(latestTarget){
+                observer.unobserve(latestTarget)
+            }
+            
+        }
+    },[])
+    
     if(props.description){
         return (
-            <div>
+            <div ref={target}>
                 <h2>{props.name}</h2>
-                <img src={props.imageSrc} alt={props.name}/>
+                {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton height={'100vh'}/>}
                 <p data-testid='desc'>{props.description}</p>
                 <p data-testid='price'>{props.price.toFixed(2)}</p>
             </div>
         )
         }
         return(
-            <div>
+            <div ref={target}>
                 <h2>{props.name}</h2>
-                <img src={props.imageSrc} alt={props.name}/>
+                {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton height={'100vh'}/>}
                 <p data-testid='price'>{props.price.toFixed(2)}</p>
             </div>
         )
