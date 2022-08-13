@@ -26,17 +26,17 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
     let [imageVisible, setImageVisible] = useState<boolean>(false)
     const target= useRef() as MutableRefObject<HTMLDivElement> | undefined
 
-
     useEffect(()=>{
         let latestTarget = target?.current
-        const observer = new IntersectionObserver((entries)=>{
-            entries.forEach(entry => entry.isIntersecting ? setImageVisible(true) : false)
-        })
-        if(latestTarget){
-            observer.observe(latestTarget as HTMLDivElement)
-            
-
+        let opts =  {
+            rootMargin : '50px',
+            threshold : 0.25
         }
+        const observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry => entry.isIntersecting  ? setImageVisible(true) : false)
+        },opts)
+        observer.observe(latestTarget as HTMLDivElement)     
+        
         return () => {
             if(latestTarget){
                 observer.unobserve(latestTarget)
@@ -44,10 +44,11 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
             
         }
     },[])
+
     
     if(props.description){
         return (
-            <div ref={target}>
+            <div className='mt-2' ref={target}>
                 <h2>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton height={'100vh'}/>}
                 <p data-testid='desc'>{props.description}</p>
@@ -56,7 +57,7 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
         )
         }
         return(
-            <div ref={target}>
+            <div className='mt-2' ref={target}>
                 <h2>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton height={'100vh'}/>}
                 <p data-testid='price'>{props.price.toFixed(2)}</p>
