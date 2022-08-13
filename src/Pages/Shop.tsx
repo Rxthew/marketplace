@@ -40,6 +40,14 @@ const defaultItems = function():Map<string,shopItem>[]{
 
 }
 
+const noMatch = <main className="flex flex-col justify-center items-center bg-blue-50 text-slate-500">
+    <Link to='/products'>
+        <button className="mt-4 p-4 border border-black" type='button'>Back to Marketplace</button>
+    </Link>
+    <p className="p-24 text-5xl">There is nothing here right now.</p>
+    
+</main>
+
 const getSingleMap = function(elem:Map<string,shopItem>):{map : shopItem | undefined, key : string}{
     const key = elem.keys().next().value
     const map = elem.get(key)
@@ -83,6 +91,7 @@ const Shop = function():JSX.Element{
             <Route path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/> 
             <Route path="/products" element={indexPage}/>  
             {generateRoutes()}
+            <Route path="*" element={noMatch} />
         </Routes>
             
     ) 
