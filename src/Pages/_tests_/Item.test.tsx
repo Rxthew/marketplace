@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event'
 import { cartItem } from '../Cart'
 import { Item } from '../Item'
 import { useEffect,useState } from 'react'
+import 'intersection-observer'
+
 
 
 type setMapType = Map<string,{name: string, description:string} | cartItem> | null
@@ -33,7 +35,7 @@ const SetNewItemMap = function(props:{someMap : setMapType ,mapKey:string}){
     },[propMap])
     
     return (
-        <BrowserRouter>
+    <BrowserRouter>
         <Routes>
             <Route path="/" element={<Item name={name ?? 'Product'} description={desc ?? 'Available'} itemsSetter={testSetter} mapKey={'testing'} imageSrc='#' price={12.12}/>}/>
             <Route path="/cart" element={<Item name={name ?? 'Product'} description={desc ?? 'Available'} itemsSetter={testSetter} mapKey={'testing'} imageSrc='#' price={12.12}/>}/> 
@@ -73,9 +75,12 @@ describe('Item renders correctly with props included',() => {
         cleanup()
 
     })
-    it('Item renders image through image source property',() =>{
+    it('Item renders image through image source property (after page is finished lazy loading)',() =>{
         render(<SetNewItemMap someMap={firstMap} mapKey={'default'} />)
-        expect(screen.getByRole('img').getAttribute('src')).toBe('#')
+        setTimeout(()=>{
+            expect(screen.getByRole('img').getAttribute('src')).toBe('#')
+        },0)
+       
         cleanup()
 
     })
@@ -88,6 +93,7 @@ describe('Item renders correctly with props included',() => {
     
 
 })
+
 describe('Item updates itemsMap within state',() => {
     
     it('Item is added to cart through setter',()=>{
