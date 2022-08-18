@@ -30,7 +30,7 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
         let latestTarget = target?.current
         let opts =  {
             rootMargin : '50px',
-            threshold : 0.25
+            threshold : 0.1
         }
         const observer = new IntersectionObserver((entries)=>{
             entries.forEach(entry => entry.isIntersecting  ? setImageVisible(true) : false)
@@ -50,17 +50,17 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
         return (
             <section className='flex flex-col items-center mt-2 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' ref={target}>
                 <h2>{props.name}</h2>
-                {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton height={'100vh'}/>}
+                {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton className='min-w-xl'/>}
                 <p data-testid='desc'>{props.description}</p>
-                <p data-testid='price'>{props.price.toFixed(2)}</p>
+                <p data-testid='price'>${props.price.toFixed(2)}</p>
             </section>
         )
         }
         return(
-            <div className='mt-2 border p-8 rounded-lg bg-[#D6AD60]' ref={target}>
+            <div className='mt-8 border p-8 rounded-lg bg-[#D6AD60]' ref={target}>
                 <h2>{props.name}</h2>
-                {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton height={'100vh'}/>}
-                <p data-testid='price'>{props.price.toFixed(2)}</p>
+                {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton className='min-w-xl'/>}
+                <p data-testid='price'>${props.price.toFixed(2)}</p>
             </div>
         )
 
@@ -109,7 +109,7 @@ export const Item = function(props:itemProps):JSX.Element{
     return (
         <main className="flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]">
             <Link to='/products'>
-                <button type='button'>Back to Marketplace</button>
+                <button className="mt-4 p-4 border border-black" type='button'>Back to Marketplace</button>
             </Link>
             {essence}
             <Link to='/cart'>

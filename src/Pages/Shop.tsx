@@ -41,7 +41,7 @@ const defaultItems = function():Map<string,shopItem>[]{
 
 }
 
-const noMatch = <main className="flex flex-col justify-center items-center bg-blue-50 text-slate-500">
+const noMatch = <main className="flex flex-col justify-center items-center text-slate-500">
     <Link to='/products'>
         <button className="mt-4 p-4 border border-black" type='button'>Back to Marketplace</button>
     </Link>
@@ -88,7 +88,6 @@ const Shop = function():JSX.Element{
                             <Link key={genKey()} to={'/cart'}>{<button type='button'>Cart</button>}</Link>
                         </nav>
                         {finalisedItems}
-                        
                     </main> 
     return (
         <Routes>
