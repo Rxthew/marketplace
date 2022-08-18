@@ -1,11 +1,11 @@
-import camera from './black-grey-camera.jpg'
-import reel from './fishing-reel.jpg'
-import drive from './hard-drive.jpg'
-import kettle from './kettle.jpg'
-import bike from './mountain-bike.jpg'
-import perfume from './perfume.jpg'
-import toolbox from './toolbox.jpg'
-import basket from './wicker-basket.jpg'
+import camera from './black-grey-camera-alex-andrews.jpg'
+import reel from './fishing-reel-brent-keane.jpg'
+import drive from './hard-drive-sergei-starostin.jpg'
+import kettle from './kettle-cottonbro.jpg'
+import bike from './mountain-bike-jenda-kubeš.jpg'
+import perfume from './perfume-dids.jpg'
+import toolbox from './toolbox-anastasia-shuraeva.jpg'
+import basket from './wicker-basket-vinícius-estevão.jpg'
 
 const products = {
     camera,
