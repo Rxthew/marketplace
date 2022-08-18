@@ -77,15 +77,19 @@ const Shop = function():JSX.Element{
         function(elem){
             const {map,key} = getSingleMap(elem)
             const element = <ItemEssence name={map?.name ?? 'Coming soon'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0}/>
-            return <Link key={genKey()} to={`/products/${key}`} >{element}</Link>
+
+            return  <section key={genKey()}>
+                <Link key={genKey()} to={`/products/${key}`} >{element}</Link>
+                </section>
     })
 
-    const indexPage:JSX.Element = <div>
+    const indexPage:JSX.Element = <main className="flex flex-col items-center bg-[#F4EBD0]">
                         <nav>
-                            <Link key={genKey()} to={'/cart'}>{<button>Cart</button>}</Link>
-                            {finalisedItems}
+                            <Link key={genKey()} to={'/cart'}>{<button type='button'>Cart</button>}</Link>
                         </nav>
-                    </div>
+                        {finalisedItems}
+                        
+                    </main> 
     return (
         <Routes>
             <Route key={genKey()} path="/" element={indexPage}/> 
