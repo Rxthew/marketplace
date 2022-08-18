@@ -1,6 +1,7 @@
 import  products from '../Images/products'
 import { Item, ItemEssence } from './Item'
 import { useState } from 'react'
+import {v4 as genKey} from 'uuid'
 import { Link, Route, Routes } from 'react-router-dom'
 import { Cart, cartItem } from './Cart'
 
@@ -65,7 +66,7 @@ const Shop = function():JSX.Element{
             function(elem){
                 const {map,key} = getSingleMap(elem)
                 const element = <Item name={map?.name ?? 'Coming soon'} description={map?.description ?? 'Product description not available at this time'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0} mapKey={key} itemsSetter={setItemsState}/>
-                return <Route path={`/products/${key}`} element={element}/>
+                return <Route key={genKey()} path={`/products/${key}`} element={element}/>
             }
         )
         return finalisedRoutes
@@ -76,22 +77,22 @@ const Shop = function():JSX.Element{
         function(elem){
             const {map,key} = getSingleMap(elem)
             const element = <ItemEssence name={map?.name ?? 'Coming soon'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0}/>
-            return <Link to={`/products/${key}`} >{element}</Link>
+            return <Link key={genKey()} to={`/products/${key}`} >{element}</Link>
     })
 
     const indexPage:JSX.Element = <div>
                         <nav>
-                            <Link to={'/cart'}>{<button>Cart</button>}</Link>
+                            <Link key={genKey()} to={'/cart'}>{<button>Cart</button>}</Link>
                             {finalisedItems}
                         </nav>
                     </div>
     return (
         <Routes>
-            <Route path="/" element={indexPage}/> 
-            <Route path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/> 
-            <Route path="/products" element={indexPage}/>  
+            <Route key={genKey()} path="/" element={indexPage}/> 
+            <Route key={genKey()} path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/> 
+            <Route  key={genKey()} path="/products" element={indexPage}/>  
             {generateRoutes()}
-            <Route path="*" element={noMatch} />
+            <Route key={genKey()} path="*" element={noMatch} />
         </Routes>
             
     ) 
