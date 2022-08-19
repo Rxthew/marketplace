@@ -4,6 +4,7 @@ import { useState } from 'react'
 import {v4 as genKey} from 'uuid'
 import { Link, Route, Routes } from 'react-router-dom'
 import { Cart, cartItem } from './Cart'
+import { ReactComponent as CartButton} from '../Icons/cart.svg'
 
 
 
@@ -85,7 +86,11 @@ const Shop = function():JSX.Element{
 
     const indexPage:JSX.Element = <main className="flex flex-col items-center bg-[#F4EBD0]">
                         <nav>
-                            <Link key={genKey()} to={'/cart'}>{<button type='button'>Cart</button>}</Link>
+                            <Link key={genKey()} to={'/cart'}>
+                                {<button className="mt-2 p-2 border border-black border-solid rounded-xl" type='button'>
+                                    <CartButton/>
+                                </button>}
+                            </Link>
                         </nav>
                         {finalisedItems}
                     </main> 
