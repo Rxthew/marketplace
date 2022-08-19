@@ -49,18 +49,18 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
     if(props.description){
         return (
             <section className='flex flex-col items-center mt-2 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' ref={target}>
-                <h2>{props.name}</h2>
+                <h2 className='text-2xl mb-4'>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton className='min-w-xl'/>}
                 <p data-testid='desc'>{props.description}</p>
-                <p data-testid='price'>${props.price.toFixed(2)}</p>
+                <p className='text-2xl mt-4 self-start' data-testid='price'>${props.price.toFixed(2)}</p>
             </section>
         )
         }
         return(
-            <div className='mt-8 border p-8 rounded-lg bg-[#D6AD60]' ref={target}>
-                <h2>{props.name}</h2>
+            <div className='flex flex-col items-center mt-8 border p-8 rounded-lg bg-[#D6AD60]' ref={target}>
+                <h2 className='text-2xl mb-4'>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton className='min-w-xl'/>}
-                <p data-testid='price'>${props.price.toFixed(2)}</p>
+                <p className='text-2xl mt-4 self-start' data-testid='price'>${props.price.toFixed(2)}</p>
             </div>
         )
 
