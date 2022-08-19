@@ -72,16 +72,16 @@ export const Cart = function(props:cartProps):JSX.Element{
     let onMount:React.MutableRefObject<boolean> = useRef(false)
     
     let [cartContent,setCartContent] = useState<JSX.Element>(
-    <div>
-        <Link to='/products'>
-            <button type='button'>Back to Marketplace</button>
-        </Link>
-        <span>Your cart is empty</span>
-        <div>
-            <span>Subtotal:</span>
+    <main className='flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]'>
+        <div className='text-2xl font-bold'> 
+            <span>Subtotal: </span>
             <span data-testid='totalPrice'>${0}</span>
         </div>
-    </div>
+        <Link to='/products'>
+            <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Back to Marketplace</button>
+        </Link>
+        <span className='text-3xl'>Your cart is empty.</span>
+    </main>
     )
 
 
@@ -164,16 +164,22 @@ export const Cart = function(props:cartProps):JSX.Element{
             )
             const subTotal:number = reconcileSubTotal(itemsArray)  
                 setCartContent(
-                    <div>
-                        <Link to='/products'>
-                            <button type='button'>Back to Marketplace</button>
-                        </Link>
-                        {subTotal === 0 ? <span>Your cart is empty</span> : renderedItems}
-                        <div>
-                            <span>Subtotal:</span>
+                    <main className='flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]'> 
+                        <div className='text-2xl font-bold'>
+                            <span>Subtotal: </span>
                             <span data-testid='totalPrice'>${subTotal=== 0 ? 0 :subTotal.toFixed(2)}</span>
+                            {subTotal === 0 ? false : <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Checkout</button>}
                         </div>
-                    </div>
+                        {subTotal === 0 ? 
+                            <span className='text-3xl'>Your cart is empty.</span> : 
+                            <section className='mt-8 rounded-lg bg-[#D6AD60] text-center'>
+                                <span className='p-2 w-full inline-block rounded-t-lg bg-[#B68D40] text-lg font-bold text-[#F4EBD0]'>Your Shopping Cart</span>
+                                {renderedItems}
+                            </section>}
+                        <Link to='/products'>
+                            <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Back to Marketplace</button>
+                        </Link>
+                    </main>
                 )
 
             
