@@ -108,13 +108,13 @@ export const Item = function(props:itemProps):JSX.Element{
 
     return (
         <main className="flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]">
-            <Link to='/products'>
-                <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Back to Marketplace</button>
-            </Link>
-            {essence}
             <Link to='/cart'>
                 <button className='mt-4 p-4 rounded-lg bg-[#D6AD60]' type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
-            </Link>                
+            </Link> 
+            {essence}
+            <Link to='/products'>
+                <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Back to Marketplace</button>
+            </Link>        
         </main>
     )
 }
