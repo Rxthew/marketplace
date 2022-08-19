@@ -51,7 +51,7 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
             <section className='flex flex-col items-center mt-2 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' ref={target}>
                 <h2 className='text-2xl mb-4'>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton className='min-w-xl'/>}
-                <p data-testid='desc'>{props.description}</p>
+                <p className='p-4 whitespace-pre-wrap break-all' data-testid='desc'>{props.description}</p>
                 <p className='text-2xl mt-4 self-start' data-testid='price'>${props.price.toFixed(2)}</p>
             </section>
         )
@@ -109,11 +109,11 @@ export const Item = function(props:itemProps):JSX.Element{
     return (
         <main className="flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]">
             <Link to='/products'>
-                <button className="mt-4 p-4 border border-black" type='button'>Back to Marketplace</button>
+                <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Back to Marketplace</button>
             </Link>
             {essence}
             <Link to='/cart'>
-                <button type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
+                <button className='mt-4 p-4 rounded-lg bg-[#D6AD60]' type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
             </Link>                
         </main>
     )
