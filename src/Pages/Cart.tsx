@@ -2,8 +2,9 @@ import React, { SetStateAction, useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { v4 as genKey } from "uuid"
 import { ReactComponent as Add } from "../Icons/add.svg"
-import { ReactComponent as Subtract } from "../Icons/subtract.svg"
 import { ReactComponent as Remove } from "../Icons/remove.svg"
+import { ReactComponent as Subtract } from "../Icons/subtract.svg"
+import { ReactComponent as ToggleView } from "../Icons/ToggleView.svg"
 
 
 
@@ -90,15 +91,17 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
 
     return (
         <div className='bg-[#D6AD60]' key={genKey()}>
-            <button className='float-right' onClick={toggleCollapsibleView}>View</button>
             {collapsible.format}
             <div className='flex justify-between'>
                 <button type='button' aria-label={`decrement.${key}`} onClick = {() => {decrement(key)}}><Subtract/></button>
                 <span className='text-3xl px-4 bg-white' data-testid={`amount.${key}`}>{amount}</span>
                 <button type='button' aria-label={`increment.${key}`} onClick={() => {increment(key)}}><Add/></button>
             </div>
-            <button className='mt-4 fill-red-500' type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}><Remove/></button>
-
+            <div className='flex justify-evenly'> 
+                <button onClick={toggleCollapsibleView}><ToggleView /></button>
+                <button className='mt-4 fill-red-500' type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}><Remove/></button>
+            </div>
+            
         </div>
         
     )
