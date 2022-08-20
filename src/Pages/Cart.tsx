@@ -1,6 +1,11 @@
 import React, { SetStateAction, useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import {v4 as genKey} from 'uuid'
+import { v4 as genKey } from "uuid"
+import { ReactComponent as Add } from "../Icons/add.svg"
+import { ReactComponent as Subtract } from "../Icons/subtract.svg"
+import { ReactComponent as Remove } from "../Icons/remove.svg"
+
+
 
 
 export interface cartItem {
@@ -53,11 +58,11 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
         <div key={genKey()}>
             {itemObject.item}
             <div>
-                <button type='button' aria-label={`decrement.${key}`} onClick = {() => {decrement(key)}}>Decrement</button>
+                <button type='button' aria-label={`decrement.${key}`} onClick = {() => {decrement(key)}}><Subtract/></button>
                 <span data-testid={`amount.${key}`}>{amount}</span>
-                <button type='button' aria-label={`increment.${key}`} onClick={() => {increment(key)}}>Increment</button>
+                <button type='button' aria-label={`increment.${key}`} onClick={() => {increment(key)}}><Add/></button>
             </div>
-            <button type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}>Remove</button>
+            <button type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}><Remove/></button>
 
         </div>
         
