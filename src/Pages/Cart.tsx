@@ -30,6 +30,11 @@ interface singleItemProps {
     
 }
 
+interface collapsibleFormat {
+    status : 'hidden'|'visible'
+    format : JSX.Element
+}
+
 
 const getAmount = function(obj:cartItem):number{
     return obj.itemAmount
@@ -53,16 +58,46 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
     const [key,itemsSetter,decrement,increment] = [props.mapKey, props.setter,props.decrement,props.increment]
     let itemObject = props.itemObject
     let amount = itemObject.itemAmount.toString()
+    let [collapsible, setCollapsible] = useState<collapsibleFormat>(
+        {
+            status : 'hidden',
+            format : <div className='max-h-20 overflow-hidden'>
+                        {itemObject.item} 
+                     </div>
+        }
+        
+    )
+
+    const changeView = function(){
+        if(collapsible.status === 'hidden'){
+            setCollapsible({
+                status : 'visible',
+                format : itemObject.item
+            })
+        }
+        else {
+            setCollapsible({
+                status : 'hidden',
+                format : <div className='max-h-20 overflow-hidden'>
+                        {itemObject.item} 
+                     </div>
+            })
+        }
+    }
+
+
+
 
     return (
-        <div key={genKey()}>
-            {itemObject.item}
-            <div>
+        <div className='bg-[#D6AD60]' key={genKey()}>
+            <button className='float-right' onClick={changeView}>View</button>
+            {collapsible.format}
+            <div className='flex justify-between'>
                 <button type='button' aria-label={`decrement.${key}`} onClick = {() => {decrement(key)}}><Subtract/></button>
-                <span data-testid={`amount.${key}`}>{amount}</span>
+                <span className='text-3xl px-4 bg-white' data-testid={`amount.${key}`}>{amount}</span>
                 <button type='button' aria-label={`increment.${key}`} onClick={() => {increment(key)}}><Add/></button>
             </div>
-            <button type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}><Remove/></button>
+            <button className='mt-4 fill-red-500' type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}><Remove/></button>
 
         </div>
         
@@ -177,7 +212,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                         </div>
                         {subTotal === 0 ? 
                             <span className='text-3xl'>Your cart is empty.</span> : 
-                            <section className='mt-8 rounded-lg bg-[#D6AD60] text-center'>
+                            <section className='mt-8 rounded-lg text-center'>
                                 <span className='p-2 w-full inline-block rounded-t-lg bg-[#B68D40] text-lg font-bold text-[#F4EBD0]'>Your Shopping Cart</span>
                                 {renderedItems}
                             </section>}
