@@ -68,7 +68,7 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
         
     )
 
-    const changeView = function(){
+    const toggleCollapsibleView = function(){
         if(collapsible.status === 'hidden'){
             setCollapsible({
                 status : 'visible',
@@ -90,7 +90,7 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
 
     return (
         <div className='bg-[#D6AD60]' key={genKey()}>
-            <button className='float-right' onClick={changeView}>View</button>
+            <button className='float-right' onClick={toggleCollapsibleView}>View</button>
             {collapsible.format}
             <div className='flex justify-between'>
                 <button type='button' aria-label={`decrement.${key}`} onClick = {() => {decrement(key)}}><Subtract/></button>
