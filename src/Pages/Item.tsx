@@ -53,7 +53,7 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
     
     if(props.description){
         return (
-            <section className='flex flex-col items-center mt-2 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' ref={target}>
+            <section className='flex flex-col items-center mt-2 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' aria-label='Product' ref={target}>
                 <h2 className='text-2xl mb-4'>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton className='min-w-[min(600px,100vw)] min-h-[min(400px,50vh)]'/>}
                 <p className='p-4 whitespace-pre-wrap break-all' data-testid='desc'>{props.description}</p>
@@ -62,7 +62,7 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
         )
         }
         return(
-            <div className='flex flex-col items-center mt-8 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' ref={target}>
+            <div className='flex flex-col items-center mt-8 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' aria-label='Product' ref={target}>
                 <h2 className='text-2xl mb-4'>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name} onLoad={removePlaceHolder}/> : <Skeleton className='min-w-[min(600px,100vw)] min-h-[min(400px,50vh)]'/>}
                 {imageLoaded ? false : <Skeleton className='min-w-[min(600px,100vw)] min-h-[min(400px,50vh)]'/>}
@@ -114,12 +114,12 @@ export const Item = function(props:itemProps):JSX.Element{
 
     return (
         <main className="flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]">
-            <Link to='/cart'>
-                <button className='mt-4 p-4 rounded-lg bg-[#D6AD60]' type='button' aria-label='addToCart' onClick={addToCart}>Add to Cart</button>
+            <Link className='mt-4 p-4 rounded-lg bg-[#D6AD60]' onClick={addToCart} to='/cart'>
+                Add to Cart
             </Link> 
             {essence}
-            <Link to='/products'>
-                <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Back to Marketplace</button>
+            <Link className='m-4 p-4 rounded-lg bg-[#D6AD60]' to='/products'>
+                Back to Marketplace
             </Link>        
         </main>
     )

@@ -86,10 +86,8 @@ const Shop = function():JSX.Element{
 
     const indexPage:JSX.Element = <main className="flex flex-col items-center bg-[#F4EBD0]">
                         <nav>
-                            <Link key={genKey()} to={'/cart'}>
-                                {<button className="mt-2 p-2 pl-20 pr-20 flex justify-center rounded-lg bg-[#D6AD60]" type='button'>
-                                    <CartButton/>
-                                </button>}
+                            <Link className="mt-2 p-2 pl-20 pr-20 flex justify-center rounded-lg bg-[#D6AD60]" key={genKey()} to={'/cart'} aria-label='Go To Cart'>
+                                <CartButton/>
                             </Link>
                         </nav>
                         {finalisedItems}
