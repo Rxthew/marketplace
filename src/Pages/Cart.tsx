@@ -211,7 +211,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                         <div className='text-2xl font-bold'>
                             <span>Subtotal: </span>
                             <span data-testid='totalPrice'>${subTotal=== 0 ? 0 :subTotal.toFixed(2)}</span>
-                            {subTotal === 0 ? false : <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Checkout</button>}
+                            {subTotal === 0 ? false : <button className='m-4 p-4 rounded-lg bg-[#D6AD60] opacity-70' type='button' disabled={true}>Checkout</button>}
                         </div>
                         {subTotal === 0 ? 
                             <span className='text-3xl'>Your cart is empty.</span> : 
