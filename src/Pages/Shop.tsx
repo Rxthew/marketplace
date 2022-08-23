@@ -80,13 +80,13 @@ const Shop = function():JSX.Element{
             const element = <ItemEssence name={map?.name ?? 'Coming soon'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0}/>
 
             return  <section key={genKey()}>
-                <Link key={genKey()} to={`/products/${key}`} >{element}</Link>
+                <Link key={genKey()} to={`/products/${key}`} aria-label='Link to Product page'>{element}</Link>
                 </section>
     })
 
     const indexPage:JSX.Element = <main className="flex flex-col items-center bg-[#F4EBD0]">
                         <nav>
-                            <Link className="mt-2 p-2 pl-20 pr-20 flex justify-center rounded-lg bg-[#D6AD60]" key={genKey()} to={'/cart'} aria-label='Go To Cart'>
+                            <Link className="mt-2 p-2 pl-20 pr-20 flex justify-center rounded-lg bg-[#D6AD60]" key={genKey()} to={'/cart'} aria-label='Link to Cart page'>
                                 <CartButton/>
                             </Link>
                         </nav>

@@ -98,7 +98,7 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
                 <button type='button' aria-label={`increment.${key}`} onClick={() => {increment(key)}}><Add/></button>
             </div>
             <div className='flex justify-evenly'> 
-                <button onClick={toggleCollapsibleView}><ToggleView /></button>
+                <button type='button' aria-label={`toggleView.${key}`} onClick={toggleCollapsibleView}><ToggleView /></button>
                 <button className='mt-4 fill-red-500' type='button' aria-label={`remove.${key}`} onClick={() => {reduceMap(key,itemsSetter)}}><Remove/></button>
             </div>
             
@@ -211,16 +211,16 @@ export const Cart = function(props:cartProps):JSX.Element{
                         <div className='text-2xl font-bold'>
                             <span>Subtotal: </span>
                             <span data-testid='totalPrice'>${subTotal=== 0 ? 0 :subTotal.toFixed(2)}</span>
-                            {subTotal === 0 ? false : <button className='m-4 p-4 rounded-lg bg-[#D6AD60] opacity-70' type='button' disabled={true}>Checkout</button>}
+                            {subTotal === 0 ? false : <button className='m-4 p-4 rounded-lg bg-[#D6AD60] opacity-70' type='button' aria-label='Notional checkout button. Currently disabled from use.' disabled={true}>Checkout</button>}
                         </div>
                         {subTotal === 0 ? 
                             <span className='text-3xl'>Your cart is empty.</span> : 
                             <section className='mt-8 rounded-lg text-center'>
-                                <span className='p-2 w-full inline-block rounded-t-lg bg-[#B68D40] text-lg font-bold text-[#F4EBD0]'>Your Shopping Cart</span>
+                                <span className='p-2 w-full inline-block rounded-t-lg bg-[#B68D40] text-lg'>Your Shopping Cart</span>
                                 {renderedItems}
                             </section>}
-                        <Link to='/products'>
-                            <button className='m-4 p-4 rounded-lg bg-[#D6AD60]' type='button'>Back to Marketplace</button>
+                        <Link className='m-4 p-4 rounded-lg bg-[#D6AD60]' to='/products'>
+                            Back to Marketplace
                         </Link>
                     </main>
                 )

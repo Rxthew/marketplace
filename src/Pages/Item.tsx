@@ -53,7 +53,7 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
     
     if(props.description){
         return (
-            <section className='flex flex-col items-center mt-2 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' aria-label='Product' ref={target}>
+            <section className='flex flex-col items-center mt-2 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' aria-label='Product Information' ref={target}>
                 <h2 className='text-2xl mb-4'>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name}/> : <Skeleton className='min-w-[min(600px,100vw)] min-h-[min(400px,50vh)]'/>}
                 <p className='p-4 whitespace-pre-wrap break-all' data-testid='desc'>{props.description}</p>
@@ -62,7 +62,7 @@ export const ItemEssence = function(props:itemEssenceProps):JSX.Element{
         )
         }
         return(
-            <div className='flex flex-col items-center mt-8 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' aria-label='Product' ref={target}>
+            <div className='flex flex-col items-center mt-8 border p-8 rounded-lg bg-[#D6AD60] max-w-xl' aria-label='Product Information' ref={target}>
                 <h2 className='text-2xl mb-4'>{props.name}</h2>
                 {imageVisible ? <img src={props.imageSrc} alt={props.name} onLoad={removePlaceHolder}/> : <Skeleton className='min-w-[min(600px,100vw)] min-h-[min(400px,50vh)]'/>}
                 {imageLoaded ? false : <Skeleton className='min-w-[min(600px,100vw)] min-h-[min(400px,50vh)]'/>}
