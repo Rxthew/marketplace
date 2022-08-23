@@ -86,7 +86,7 @@ describe('Item renders correctly with props included',() => {
     })
     it('Item renders price property',()=>{
         render(<SetNewItemMap someMap={firstMap} mapKey={'default'} />)
-        expect(screen.getByTestId('price').textContent).toBe("12.12")
+        expect(screen.getByTestId('price').textContent).toBe("$12.12")
         cleanup()
 
     })
@@ -101,7 +101,7 @@ describe('Item updates itemsMap within state',() => {
         secondMap.set('default',someItem('Cart','Add this to your cart.'))
 
         render(<SetNewItemMap someMap={secondMap} mapKey={'default'} />)
-        const target = screen.getByRole('button',{name : 'addToCart'})
+        const target = screen.getByRole('link',{name : 'Add to Cart'})
 
         expect(target).toBeInTheDocument()
 
@@ -121,7 +121,7 @@ describe('Item updates itemsMap within state',() => {
         thirdMap.set('default',someItem('Cart','Item already here'))
 
         render(<SetNewItemMap someMap={thirdMap} mapKey={'default'} />)
-        const target = screen.getByRole('button',{name : 'addToCart'})
+        const target = screen.getByRole('link',{name : 'Add to Cart'})
         userEvent.click(target)
         userEvent.click(target)
         expect(preRerenderSetter).toHaveBeenCalled()
