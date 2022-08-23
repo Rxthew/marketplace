@@ -49,7 +49,7 @@ const someItem = (text:string) =>{
 describe('Cart renders props, including itemsMap, correctly', () => { 
     it('Cart renders default empty message if null passed in as prop',() => {
         render(<SetNewMap someMap={null} />)
-        const target = screen.getByText('Your cart is empty')
+        const target = screen.getByTestId('emptyCart')
         expect(target).toBeInTheDocument()
         cleanup()
     })
@@ -60,7 +60,7 @@ describe('Cart renders props, including itemsMap, correctly', () => {
         render(<SetNewMap someMap={firstItemMap} />)
         const target = screen.getByText('first item')
         expect(target).toBeInTheDocument()
-        expect(screen.queryByText('Your cart is empty')).not.toBeInTheDocument()
+        expect(screen.queryByTestId('emptyCart')).not.toBeInTheDocument()
         cleanup()
 
     })
@@ -251,7 +251,7 @@ describe('Cart removes item from itemsMap if user clicks corresponding button',(
 
         const target = screen.getByRole('button',{name : /remove.removal/i})
         userEvent.click(target)
-        expect(screen.getByText('Your cart is empty')).toBeInTheDocument()
+        expect(screen.getByTestId('emptyCart')).toBeInTheDocument()
         
         cleanup()
 

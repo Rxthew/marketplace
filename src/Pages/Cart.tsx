@@ -123,7 +123,7 @@ export const Cart = function(props:cartProps):JSX.Element{
         <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/products'>
             Back to Marketplace
         </Link>
-        <span className='text-3xl'>Your cart is empty.</span>
+        <span className='text-3xl' data-testid='emptyCart'>Your cart is empty.</span>
     </main>
     )
 
@@ -214,7 +214,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                             {subTotal === 0 ? false : <button className='m-4 p-4 rounded-lg bg-[#D6AD60] opacity-70' type='button' aria-label='Notional checkout button. Currently disabled from use.' disabled={true}>Checkout</button>}
                         </div>
                         {subTotal === 0 ? 
-                            <span className='text-3xl'>Your cart is empty.</span> : 
+                            <span className='text-3xl' data-testid='emptyCart'>Your cart is empty.</span> : 
                             <section className='mt-8 rounded-lg text-center'>
                                 <span className='p-2 w-full inline-block rounded-t-lg bg-[#B68D40] text-lg'>Your Shopping Cart</span>
                                 {renderedItems}
