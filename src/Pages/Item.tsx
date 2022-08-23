@@ -114,11 +114,11 @@ export const Item = function(props:itemProps):JSX.Element{
 
     return (
         <main className="flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]">
-            <Link className='mt-4 p-4 rounded-lg bg-[#D6AD60]' onClick={addToCart} to='/cart'>
+            <Link className='mt-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' onClick={addToCart} to='/cart'>
                 Add to Cart
             </Link> 
             {essence}
-            <Link className='m-4 p-4 rounded-lg bg-[#D6AD60]' to='/products'>
+            <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/products'>
                 Back to Marketplace
             </Link>        
         </main>
