@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "./marketplace/static/css/main.6ce4d69c.css",
-    "main.js": "./marketplace/static/js/main.6ba23d49.js",
-    "static/js/787.c23b093c.chunk.js": "./marketplace/static/js/787.c23b093c.chunk.js",
-    "static/media/toolbox-anastasia-shuraeva.jpg": "./marketplace/static/media/toolbox-anastasia-shuraeva.c1b1325bdcc18d873229.jpg",
-    "static/media/mountain-bike-jenda-kubeš.jpg": "./marketplace/static/media/mountain-bike-jenda-kubeš.ac8e5bc626ab86ca176e.jpg",
-    "static/media/kettle-cottonbro.jpg": "./marketplace/static/media/kettle-cottonbro.651f90449703dd8ebcf1.jpg",
-    "static/media/fishing-reel-brent-keane.jpg": "./marketplace/static/media/fishing-reel-brent-keane.0be88c68d3a5af8054a5.jpg",
-    "static/media/wicker-basket-vinícius-estevão.jpg": "./marketplace/static/media/wicker-basket-vinícius-estevão.ded2c11e02b96cab1964.jpg",
-    "static/media/hard-drive-sergei-starostin.jpg": "./marketplace/static/media/hard-drive-sergei-starostin.e589940340951c4822ec.jpg",
-    "static/media/black-grey-camera-alex-andrews.jpg": "./marketplace/static/media/black-grey-camera-alex-andrews.c4be4eb7b825bde4fd10.jpg",
-    "static/media/perfume-dids.jpg": "./marketplace/static/media/perfume-dids.9a60109d16a1febcf33f.jpg",
-    "static/media/cart.svg": "./marketplace/static/media/cart.391d3ddd76c7f6e6f8c13348c8af15b9.svg",
-    "index.html": "./marketplace/index.html",
-    "static/media/ToggleView.svg": "./marketplace/static/media/ToggleView.3aa433cff8204e4e1e541d4d4ef9f596.svg",
-    "static/media/remove.svg": "./marketplace/static/media/remove.f683566d31e5b8b76a5b37fd9b9993ec.svg",
-    "static/media/add.svg": "./marketplace/static/media/add.02e1ca9901d82e394e0b1e44d6943c2d.svg",
-    "static/media/subtract.svg": "./marketplace/static/media/subtract.3ad1184ff64e48b927691efdffd28798.svg",
-    "main.6ce4d69c.css.map": "./marketplace/static/css/main.6ce4d69c.css.map",
-    "main.6ba23d49.js.map": "./marketplace/static/js/main.6ba23d49.js.map",
-    "787.c23b093c.chunk.js.map": "./marketplace/static/js/787.c23b093c.chunk.js.map"
+    "main.css": "/marketplace/static/css/main.6ce4d69c.css",
+    "main.js": "/marketplace/static/js/main.9197540f.js",
+    "static/js/787.c23b093c.chunk.js": "/marketplace/static/js/787.c23b093c.chunk.js",
+    "static/media/toolbox-anastasia-shuraeva.jpg": "/marketplace/static/media/toolbox-anastasia-shuraeva.c1b1325bdcc18d873229.jpg",
+    "static/media/mountain-bike-jenda-kubeš.jpg": "/marketplace/static/media/mountain-bike-jenda-kubeš.ac8e5bc626ab86ca176e.jpg",
+    "static/media/kettle-cottonbro.jpg": "/marketplace/static/media/kettle-cottonbro.651f90449703dd8ebcf1.jpg",
+    "static/media/fishing-reel-brent-keane.jpg": "/marketplace/static/media/fishing-reel-brent-keane.0be88c68d3a5af8054a5.jpg",
+    "static/media/wicker-basket-vinícius-estevão.jpg": "/marketplace/static/media/wicker-basket-vinícius-estevão.ded2c11e02b96cab1964.jpg",
+    "static/media/hard-drive-sergei-starostin.jpg": "/marketplace/static/media/hard-drive-sergei-starostin.e589940340951c4822ec.jpg",
+    "static/media/black-grey-camera-alex-andrews.jpg": "/marketplace/static/media/black-grey-camera-alex-andrews.c4be4eb7b825bde4fd10.jpg",
+    "static/media/perfume-dids.jpg": "/marketplace/static/media/perfume-dids.9a60109d16a1febcf33f.jpg",
+    "static/media/cart.svg": "/marketplace/static/media/cart.391d3ddd76c7f6e6f8c13348c8af15b9.svg",
+    "index.html": "/marketplace/index.html",
+    "static/media/ToggleView.svg": "/marketplace/static/media/ToggleView.3aa433cff8204e4e1e541d4d4ef9f596.svg",
+    "static/media/remove.svg": "/marketplace/static/media/remove.f683566d31e5b8b76a5b37fd9b9993ec.svg",
+    "static/media/add.svg": "/marketplace/static/media/add.02e1ca9901d82e394e0b1e44d6943c2d.svg",
+    "static/media/subtract.svg": "/marketplace/static/media/subtract.3ad1184ff64e48b927691efdffd28798.svg",
+    "main.6ce4d69c.css.map": "/marketplace/static/css/main.6ce4d69c.css.map",
+    "main.9197540f.js.map": "/marketplace/static/js/main.9197540f.js.map",
+    "787.c23b093c.chunk.js.map": "/marketplace/static/js/787.c23b093c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6ce4d69c.css",
-    "static/js/main.6ba23d49.js"
+    "static/js/main.9197540f.js"
   ]
 }
