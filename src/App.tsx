@@ -11,7 +11,7 @@ function App() {
         The Marketplace
       </h1>
     </header>
-    <Router>
+    <Router basename='/marketplace/'>
       <Shop/>
     </Router>
     </>
