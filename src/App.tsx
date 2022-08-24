@@ -1,5 +1,4 @@
 import Shop from './Pages/Shop';
-import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom'
 
 
