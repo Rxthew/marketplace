@@ -1,6 +1,6 @@
 import Shop from './Pages/Shop';
 import './App.css';
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 
 function App() {
@@ -11,9 +11,9 @@ function App() {
         The Marketplace
       </h1>
     </header>
-    <HashRouter>
+    <Router>
       <Shop/>
-    </HashRouter>
+    </Router>
     </>
     
   );
