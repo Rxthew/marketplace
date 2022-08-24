@@ -219,7 +219,7 @@ export const Cart = function(props:cartProps):JSX.Element{
                                 <span className='p-2 w-full inline-block rounded-t-lg bg-[#B68D40] text-lg'>Your Shopping Cart</span>
                                 {renderedItems}
                             </section>}
-                        <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/products'>
+                        <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/'>
                             Back to Marketplace
                         </Link>
                     </main>

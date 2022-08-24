@@ -43,7 +43,7 @@ const defaultItems = function():Map<string,shopItem>[]{
 }
 
 const noMatch = <main className="flex flex-col justify-center items-center text-slate-500">
-    <Link to='/products'>
+    <Link to='/'>
         <button className="mt-4 p-4 rounded-lg shadow-lg active:shadow-sm bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40] text-black" type='button'>Back to Marketplace</button>
     </Link>
     <p className="p-24 text-5xl">There is nothing here right now.</p>
@@ -67,7 +67,7 @@ const Shop = function():JSX.Element{
             function(elem){
                 const {map,key} = getSingleMap(elem)
                 const element = <Item name={map?.name ?? 'Coming soon'} description={map?.description ?? 'Product description not available at this time'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0} mapKey={key} itemsSetter={setItemsState}/>
-                return <Route key={genKey()} path={`/products/${key}`} element={element}/>
+                return <Route key={genKey()} path={`/${key}`} element={element}/>
             }
         )
         return finalisedRoutes
@@ -80,7 +80,7 @@ const Shop = function():JSX.Element{
             const element = <ItemEssence name={map?.name ?? 'Coming soon'} imageSrc={map?.imageSrc ?? '#'} price={map?.price ?? 0}/>
 
             return  <section key={genKey()}>
-                <Link key={genKey()} to={`/products/${key}`} aria-label='Link to Product page'>{element}</Link>
+                <Link key={genKey()} to={`/${key}`} aria-label='Link to Product page'>{element}</Link>
                 </section>
     })
 
@@ -96,7 +96,6 @@ const Shop = function():JSX.Element{
         <Routes>
             <Route key={genKey()} path="/" element={indexPage}/> 
             <Route key={genKey()} path="/cart" element={<Cart itemsMap={itemsState} itemsSetter={setItemsState}/>}/> 
-            <Route  key={genKey()} path="/products" element={indexPage}/>  
             {generateRoutes()}
             <Route key={genKey()} path="*" element={noMatch} />
         </Routes>

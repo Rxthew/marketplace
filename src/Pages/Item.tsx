@@ -118,7 +118,7 @@ export const Item = function(props:itemProps):JSX.Element{
                 Add to Cart
             </Link> 
             {essence}
-            <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/products'>
+            <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/'>
                 Back to Marketplace
             </Link>        
         </main>
