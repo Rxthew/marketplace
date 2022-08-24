@@ -94,7 +94,7 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
             {collapsible.format}
             <div className='flex justify-between'>
                 <button type='button' aria-label={`decrement.${key}`} onClick = {() => {decrement(key)}}><Subtract/></button>
-                <span className='text-3xl px-4 bg-white' data-testid={`amount.${key}`}>{amount}</span>
+                <span className='text-2xl px-3 bg-white' data-testid={`amount.${key}`}>{amount}</span>
                 <button type='button' aria-label={`increment.${key}`} onClick={() => {increment(key)}}><Add/></button>
             </div>
             <div className='flex justify-evenly'> 
@@ -116,14 +116,14 @@ export const Cart = function(props:cartProps):JSX.Element{
     
     let [cartContent,setCartContent] = useState<JSX.Element>(
     <main className='flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]'>
-        <div className='text-2xl font-bold'> 
+        <div className='text-xl font-bold'> 
             <span>Subtotal: </span>
             <span data-testid='totalPrice'>${0}</span>
         </div>
         <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/products'>
             Back to Marketplace
         </Link>
-        <span className='text-3xl' data-testid='emptyCart'>Your cart is empty.</span>
+        <span className='text-2xl' data-testid='emptyCart'>Your cart is empty.</span>
     </main>
     )
 
@@ -208,14 +208,14 @@ export const Cart = function(props:cartProps):JSX.Element{
             const subTotal:number = reconcileSubTotal(itemsArray)  
                 setCartContent(
                     <main className='flex flex-col items-center bg-[#F4EBD0] min-h-screen text-[#122620]'> 
-                        <div className='text-2xl font-bold'>
+                        <div className='text-xl font-bold'>
                             <span>Subtotal: </span>
                             <span data-testid='totalPrice'>${subTotal=== 0 ? 0 :subTotal.toFixed(2)}</span>
                             {subTotal === 0 ? false : <button className='m-4 p-4 rounded-lg bg-[#D6AD60] opacity-70' type='button' aria-label='Notional checkout button. Currently disabled from use.' disabled={true}>Checkout</button>}
                         </div>
                         {subTotal === 0 ? 
-                            <span className='text-3xl' data-testid='emptyCart'>Your cart is empty.</span> : 
-                            <section className='mt-8 rounded-lg text-center'>
+                            <span className='text-2xl' data-testid='emptyCart'>Your cart is empty.</span> : 
+                            <section className='mt-4 rounded-lg text-center'>
                                 <span className='p-2 w-full inline-block rounded-t-lg bg-[#B68D40] text-lg'>Your Shopping Cart</span>
                                 {renderedItems}
                             </section>}

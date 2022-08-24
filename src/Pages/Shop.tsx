@@ -46,7 +46,7 @@ const noMatch = <main className="flex flex-col justify-center items-center text-
     <Link to='/'>
         <button className="mt-4 p-4 rounded-lg shadow-lg active:shadow-sm bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40] text-black" type='button'>Back to Marketplace</button>
     </Link>
-    <p className="p-24 text-5xl">There is nothing here right now.</p>
+    <p className="p-24 text-3xl">There is nothing here right now.</p>
     
 </main>
 
