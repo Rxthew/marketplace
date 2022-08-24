@@ -1,6 +1,6 @@
 {
   "name": "marketplace",
-  "homepage": "https://rxthew.github.io/marketplace",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
