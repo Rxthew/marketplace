@@ -1,7 +1,7 @@
 import  products from '../Images/products'
 import { Item, ItemEssence } from './Item'
 import { useEffect, useState } from 'react'
-import {v4 as genKey} from 'uuid'
+import { v4 as genKey } from 'uuid'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import { Cart, cartItem } from './Cart'
 import { ReactComponent as CartButton} from '../Icons/cart.svg'

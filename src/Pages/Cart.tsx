@@ -62,7 +62,7 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
     let [collapsible, setCollapsible] = useState<collapsibleFormat>(
         {
             status : 'hidden',
-            format : <div className='max-h-20 overflow-hidden'>
+            format : <div className='max-h-16 overflow-hidden'>
                         {itemObject.item} 
                      </div>
         }
