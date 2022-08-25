@@ -1,0 +1,412 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shop matches snapshot 1`] = `
+<main
+  className="flex flex-col items-center bg-[#F4EBD0]"
+>
+  <nav>
+    <a
+      aria-label="Link to Cart page"
+      className="mt-2 p-2 pl-20 pr-20 flex justify-center rounded-lg shadow-lg active:shadow-sm bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]"
+      href="/cart"
+      onClick={[Function]}
+    >
+      <svg>
+        cart.svg
+      </svg>
+    </a>
+  </nav>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Camera"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Camera
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Toolbox"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Toolbox
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Kettle"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Kettle
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Reel"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Reel
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Basket"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Basket
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Drive"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Drive
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Perfume"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Perfume
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+  <section>
+    <a
+      aria-label="Link to Product page"
+      href="/Bicycle"
+      onClick={[Function]}
+    >
+      <div
+        aria-label="Product Information"
+        className="flex flex-col items-center mt-8 border p-4 rounded-lg bg-[#D6AD60] max-w-sm"
+      >
+        <h2
+          className="text-xl mb-4"
+        >
+          Bicycle
+        </h2>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <span
+          aria-busy={true}
+          aria-live="polite"
+        >
+          <span
+            className="react-loading-skeleton min-w-[min(600px,90vw)] min-h-[min(400px,50vh)]"
+            style={Object {}}
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+        <p
+          className="text-xl mt-4 self-start"
+          data-testid="price"
+        >
+          $
+          10.00
+        </p>
+      </div>
+    </a>
+  </section>
+</main>
+`;
