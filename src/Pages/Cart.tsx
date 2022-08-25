@@ -79,15 +79,12 @@ const SingleItem =  function(props:singleItemProps):JSX.Element{
         else {
             setCollapsible({
                 status : 'hidden',
-                format : <div className='max-h-20 overflow-hidden'>
+                format : <div className='max-h-16 overflow-hidden'>
                         {itemObject.item} 
                      </div>
             })
         }
     }
-
-
-
 
     return (
         <div className='bg-[#D6AD60]' key={genKey()}>
