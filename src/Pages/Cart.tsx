@@ -120,7 +120,7 @@ export const Cart = function(props:cartProps):JSX.Element{
             <span>Subtotal: </span>
             <span data-testid='totalPrice'>${0}</span>
         </div>
-        <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/products'>
+        <Link className='m-4 p-4 shadow-lg active:shadow-sm rounded-lg bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40]' to='/'>
             Back to Marketplace
         </Link>
         <span className='text-2xl' data-testid='emptyCart'>Your cart is empty.</span>
