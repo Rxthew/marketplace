@@ -1,8 +1,8 @@
 import  products from '../Images/products'
 import { Item, ItemEssence } from './Item'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {v4 as genKey} from 'uuid'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import { Cart, cartItem } from './Cart'
 import { ReactComponent as CartButton} from '../Icons/cart.svg'
 
@@ -46,7 +46,7 @@ const noMatch = <main className="flex flex-col justify-center items-center text-
     <Link to='/'>
         <button className="mt-4 p-4 rounded-lg shadow-lg active:shadow-sm bg-[#D6AD60] shadow-[#B68D40] active:bg-[#B68D40] text-black" type='button'>Back to Marketplace</button>
     </Link>
-    <p className="p-24 text-3xl">There is nothing here right now.</p>
+    <p className="p-6 text-3xl">There is nothing here right now.</p>
     
 </main>
 
@@ -59,7 +59,12 @@ const getSingleMap = function(elem:Map<string,shopItem>):{map : shopItem | undef
 
 const Shop = function():JSX.Element{
     let [itemsState, setItemsState] = useState<Map<string,cartItem>|null>(null)
+    let location = useLocation()
+     useEffect(()=>{
+    window.scrollTo(0,0)
 
+  },[location])
+    
     const basicMaps = defaultItems()
     const generateRoutes = function(){
         const basicMaps = defaultItems()
