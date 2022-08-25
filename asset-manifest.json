@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/marketplace/static/css/main.5bd7a9eb.css",
-    "main.js": "/marketplace/static/js/main.925825a1.js",
+    "main.js": "/marketplace/static/js/main.5cdba31e.js",
     "static/js/787.c23b093c.chunk.js": "/marketplace/static/js/787.c23b093c.chunk.js",
     "static/media/toolbox-anastasia-shuraeva.jpg": "/marketplace/static/media/toolbox-anastasia-shuraeva.c1b1325bdcc18d873229.jpg",
     "static/media/mountain-bike-jenda-kubeš.jpg": "/marketplace/static/media/mountain-bike-jenda-kubeš.ac8e5bc626ab86ca176e.jpg",
@@ -18,11 +18,11 @@
     "static/media/add.svg": "/marketplace/static/media/add.02e1ca9901d82e394e0b1e44d6943c2d.svg",
     "static/media/subtract.svg": "/marketplace/static/media/subtract.3ad1184ff64e48b927691efdffd28798.svg",
     "main.5bd7a9eb.css.map": "/marketplace/static/css/main.5bd7a9eb.css.map",
-    "main.925825a1.js.map": "/marketplace/static/js/main.925825a1.js.map",
+    "main.5cdba31e.js.map": "/marketplace/static/js/main.5cdba31e.js.map",
     "787.c23b093c.chunk.js.map": "/marketplace/static/js/787.c23b093c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5bd7a9eb.css",
-    "static/js/main.925825a1.js"
+    "static/js/main.5cdba31e.js"
   ]
 }
