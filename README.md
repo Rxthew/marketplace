@@ -5,6 +5,8 @@
 
 This app simulates the front-end side of a small-scale e-commerce platform.
 
+[Live Demo](https://rxthew/github.io/marketplace)
+
 
 ## Remarks 
 
